@@ -21,8 +21,22 @@ export function useAppointments() {
       if (doctorsRes.error) console.error('Doctors fetch error:', doctorsRes.error);
       if (servicesRes.error) console.error('Services fetch error:', servicesRes.error);
 
-      setDoctors((doctorsRes.data as Doctor[]) ?? []);
-      setServices((servicesRes.data as Service[]) ?? []);
+      setDoctors(
+        (doctorsRes.data || []).map((d: any) => ({
+          id: d.id,
+          full_name: d.full_name,
+          specialty: d.specialty,
+        }))
+      );
+      
+      setServices(
+        (servicesRes.data || []).map((s: any) => ({
+          id: s.id,
+          title: s.title,
+          category: s.category,
+          price: s.price,
+        }))
+      );
     } catch (error) {
       console.error('Unhandled error in fetchInitialData:', error);
       setDoctors([]);
@@ -52,7 +66,15 @@ export function useAppointments() {
         setAvailableSlots([]);
         return;
       }
-      setAvailableSlots((data as Slot[]) ?? []);
+      setAvailableSlots(
+        (data || []).map((slot: any) => ({
+          id: slot.id,
+          doctor_id: slot.doctor_id,
+          slot_date: slot.slot_date,
+          slot_time: slot.slot_time,
+          is_booked: slot.is_booked,
+        }))
+      );
     } catch (error) {
       console.error(error);
       setAvailableSlots([]);
@@ -73,7 +95,21 @@ export function useAppointments() {
         console.error('Appointments fetch error:', error);
         return [];
       }
-      return (data as unknown as Appointment[]) ?? [];
+
+      if (!data) return [];
+
+      // Safely map the data to the Appointment type to avoid 'as unknown as Appointment[]' casting
+      return data.map((item: any) => ({
+        id: item.id,
+        full_name: item.full_name,
+        phone_number: item.phone_number,
+        service_type: item.service_type,
+        appointment_date: item.appointment_date,
+        appointment_time: item.appointment_time,
+        status: item.status,
+        created_at: item.created_at,
+        doctors: item.doctors ? (Array.isArray(item.doctors) ? item.doctors[0] : item.doctors) : undefined
+      }));
     } catch (error) {
       console.error('Unhandled error in fetchPatientAppointments:', error);
       return [];
