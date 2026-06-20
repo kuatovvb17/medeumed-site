@@ -11,5 +11,8 @@ if (!supabaseAnonKey) {
   throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY');
 }
 
+console.log("DEBUG: Using Supabase URL:", supabaseUrl);
+console.log("DEBUG: Using Anon Key starts with:", supabaseAnonKey.substring(0, 10));
+
 // Create a single supabase client for interacting with your database
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
