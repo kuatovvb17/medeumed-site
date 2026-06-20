@@ -67,35 +67,35 @@ export interface Database {
       appointments: {
         Row: {
           id: string
-          patient_name: string
-          patient_phone: string
+          full_name: string
+          phone_number: string
+          service_type: string
           doctor_id: string
-          service_id: string
           appointment_date: string
           appointment_time: string
-          status: 'pending' | 'confirmed' | 'cancelled'
+          status: 'pending' | 'confirmed' | 'approved' | 'completed' | 'cancelled'
           created_at: string
         }
         Insert: {
           id?: string
-          patient_name: string
-          patient_phone: string
+          full_name: string
+          phone_number: string
+          service_type: string
           doctor_id: string
-          service_id: string
           appointment_date: string
           appointment_time: string
-          status?: 'pending' | 'confirmed' | 'cancelled'
+          status?: 'pending' | 'confirmed' | 'approved' | 'completed' | 'cancelled'
           created_at?: string
         }
         Update: {
           id?: string
-          patient_name?: string
-          patient_phone?: string
+          full_name?: string
+          phone_number?: string
+          service_type?: string
           doctor_id?: string
-          service_id?: string
           appointment_date?: string
           appointment_time?: string
-          status?: 'pending' | 'confirmed' | 'cancelled'
+          status?: 'pending' | 'confirmed' | 'approved' | 'completed' | 'cancelled'
           created_at?: string
         }
       }

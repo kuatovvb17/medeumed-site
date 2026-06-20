@@ -1,42 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import toast from 'react-hot-toast';
-
-export interface Doctor {
-  id: string;
-  full_name: string;
-  specialty: string;
-}
-
-export interface Service {
-  id: string;
-  title: string;
-  category: string;
-  price: number;
-}
-
-export interface Slot {
-  id: string;
-  doctor_id: string;
-  slot_date: string;
-  slot_time: string;
-  is_booked: boolean;
-}
-
-export interface Appointment {
-  id: string;
-  full_name: string;
-  phone_number: string;
-  service_type: string;
-  appointment_date: string;
-  appointment_time: string;
-  status: string;
-  created_at: string;
-  doctors?: {
-    full_name: string;
-    specialty: string;
-  };
-}
+import type { Doctor, Service, Slot, Appointment, BookAppointmentPayload } from '@/types/models';
 
 export function useAppointments() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -50,14 +15,14 @@ export function useAppointments() {
       setLoading(true);
       const [doctorsRes, servicesRes] = await Promise.all([
         supabase.from('doctors').select('id, full_name, specialty'),
-        supabase.from('services').select('id, title, category, price')
+        supabase.from('services').select('id, title, category, price'),
       ]);
 
       if (doctorsRes.error) console.error('Doctors fetch error:', doctorsRes.error);
       if (servicesRes.error) console.error('Services fetch error:', servicesRes.error);
 
-      setDoctors(doctorsRes.data || []);
-      setServices(servicesRes.data || []);
+      setDoctors((doctorsRes.data as Doctor[]) ?? []);
+      setServices((servicesRes.data as Service[]) ?? []);
     } catch (error) {
       console.error('Unhandled error in fetchInitialData:', error);
       setDoctors([]);
@@ -87,14 +52,14 @@ export function useAppointments() {
         setAvailableSlots([]);
         return;
       }
-      setAvailableSlots(data || []);
+      setAvailableSlots((data as Slot[]) ?? []);
     } catch (error) {
       console.error(error);
       setAvailableSlots([]);
     }
   };
 
-  const fetchPatientAppointments = async (): Promise<Appointment[]> => {
+  const fetchPatientAppointments = useCallback(async (): Promise<Appointment[]> => {
     try {
       const { data, error } = await supabase
         .from('appointments')
@@ -108,33 +73,16 @@ export function useAppointments() {
         console.error('Appointments fetch error:', error);
         return [];
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return data as any || [];
+      return (data as unknown as Appointment[]) ?? [];
     } catch (error) {
       console.error('Unhandled error in fetchPatientAppointments:', error);
       return [];
     }
-  };
+  }, []);
 
-  const bookAppointment = async ({
-    patientName,
-    patientPhone,
-    doctorId,
-    serviceId,
-    serviceTitle,
-    slotId,
-    appointmentDate,
-    appointmentTime
-  }: {
-    patientName: string;
-    patientPhone: string;
-    doctorId: string;
-    serviceId: string;
-    serviceTitle: string;
-    slotId: string;
-    appointmentDate: string;
-    appointmentTime: string;
-  }) => {
+  const bookAppointment = async (payload: BookAppointmentPayload) => {
+    const { patientName, patientPhone, doctorId, serviceId, serviceTitle, slotId, appointmentDate, appointmentTime } = payload;
+
     if (!patientName || !patientPhone || !doctorId || !serviceId || !slotId) {
       toast.error('Өтініш, барлық өрістерді толтырыңыз');
       return false;
@@ -143,8 +91,7 @@ export function useAppointments() {
     try {
       setBookingLoading(true);
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error: appointmentError } = await (supabase as any)
+      const { error: appointmentError } = await supabase
         .from('appointments')
         .insert([{
           full_name: patientName,
@@ -153,13 +100,12 @@ export function useAppointments() {
           doctor_id: doctorId,
           appointment_date: appointmentDate,
           appointment_time: appointmentTime,
-          status: 'pending'
+          status: 'pending',
         }]);
 
       if (appointmentError) throw appointmentError;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error: slotError } = await (supabase as any)
+      const { error: slotError } = await supabase
         .from('available_slots')
         .update({ is_booked: true })
         .eq('id', slotId);
@@ -184,6 +130,6 @@ export function useAppointments() {
     bookingLoading,
     fetchAvailableSlots,
     fetchPatientAppointments,
-    bookAppointment
+    bookAppointment,
   };
 }
