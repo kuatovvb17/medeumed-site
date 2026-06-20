@@ -167,6 +167,9 @@ export function useAppointments() {
           client_name: patientName,
           phone: patientPhone,
           service_id: parseInt(serviceId, 10) || 1, // Ensure it's an integer
+          doctor_id: parseInt(doctorId, 10), // Adding doctor back
+          appointment_date: appointmentDate, // Adding date back
+          appointment_time: appointmentTime, // Adding time back
           status: 'pending',
         }]);
 
