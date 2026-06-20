@@ -119,28 +119,67 @@ export function useAppointments() {
 
   const fetchPatientAppointments = useCallback(async (): Promise<Appointment[]> => {
     try {
-      const { data, error } = await supabase
-        .from('appointments')
-        .select(`*, doctors (*)`)
-        .order('created_at', { ascending: false });
+      const savedPhone = typeof window !== 'undefined' ? localStorage.getItem('medeu_patient_phone') : null;
+      if (!savedPhone) return []; // No phone logged in
 
+      const digits = savedPhone.replace(/\D/g, ''); // normalize
+      
+      let phoneVariations = [savedPhone];
+      
+      if (digits.length >= 10) {
+        const offset = digits.length >= 11 ? digits.length - 10 : 0;
+        const mainDigits = digits.substring(offset, offset + 10); // always exactly 10 digits e.g. 7001234567
+        
+        let formatted = '+7';
+        if (mainDigits.length >= 3) formatted += ` (${mainDigits.substring(0, 3)})`;
+        if (mainDigits.length >= 6) formatted += ` ${mainDigits.substring(3, 6)}`;
+        if (mainDigits.length >= 8) formatted += `-${mainDigits.substring(6, 8)}`;
+        if (mainDigits.length >= 10) formatted += `-${mainDigits.substring(8, 10)}`;
+        
+        phoneVariations = [
+          formatted,
+          `8${mainDigits}`,
+          `7${mainDigits}`,
+          `+7${mainDigits}`,
+          savedPhone
+        ];
+      }
+
+      const { data: allData, error } = await supabase
+        .from('appointments')
+        .select(`*, doctors (*), services (*)`)
+        .in('phone', phoneVariations)
+        .order('id', { ascending: false });
+        
       if (error) throw error;
+      
+      const uniqueDataMap = new Map();
+      for (const item of (allData || [])) {
+        if (!uniqueDataMap.has(item.id)) {
+          uniqueDataMap.set(item.id, item);
+        }
+      }
+      
+      const data = Array.from(uniqueDataMap.values()).sort((a, b) => {
+        return b.id - a.id;
+      });
       
       // Safely map data to standard interface
       return (data || []).map((item: any) => {
         const doctorInfo = item.doctors ? (Array.isArray(item.doctors) ? item.doctors[0] : item.doctors) : undefined;
+        const serviceInfo = item.services ? (Array.isArray(item.services) ? item.services[0] : item.services) : undefined;
         if (doctorInfo && !doctorInfo.full_name && doctorInfo.name) {
           doctorInfo.full_name = doctorInfo.name;
         }
         return {
           id: item.id,
-          full_name: item.full_name,
-          phone_number: item.phone_number,
-          service_type: item.service_type,
+          full_name: item.client_name || item.full_name, // fallback for schema diffs
+          phone_number: item.phone,
+          service_type: serviceInfo?.title || item.service_type || item.service_id?.toString() || '',
           appointment_date: item.appointment_date,
           appointment_time: item.appointment_time,
           status: item.status,
-          created_at: item.created_at,
+          created_at: item.appointment_date, // Fallback since there is no created_at
           doctors: doctorInfo
         };
       });
@@ -186,6 +225,22 @@ export function useAppointments() {
           .eq('id', slotId);
 
         if (slotError) console.warn('Slot update warning:', slotError);
+      }
+
+      // Automatically "login" the user in localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('medeu_patient_phone', patientPhone);
+        
+        // Let's also save the name if profile is empty
+        const savedProfile = localStorage.getItem('medeu_patient_profile');
+        if (!savedProfile) {
+          localStorage.setItem('medeu_patient_profile', JSON.stringify({
+            fullName: patientName,
+            phone: patientPhone,
+            iin: '',
+            birthDate: ''
+          }));
+        }
       }
 
       return true;

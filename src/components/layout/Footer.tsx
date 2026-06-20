@@ -89,12 +89,12 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="text-emerald-500 shrink-0 mt-0.5" size={18} />
-                <span>Алматы қ., Достық даңғылы, 123</span>
+                <span>Алматы қ., пр. Рыскулова, 43В</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-emerald-500 shrink-0" size={18} />
-                <a href="tel:+77271234567" className="hover:text-emerald-400 transition-colors">
-                  +7 (727) 123 45 67
+                <a href="tel:+77759575780" className="hover:text-emerald-400 transition-colors">
+                  +7 (775) 957-57-80
                 </a>
               </li>
               <li className="flex items-center gap-3">

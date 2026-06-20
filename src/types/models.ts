@@ -56,8 +56,9 @@ export interface BookAppointmentPayload {
 export interface MedicalRecord {
   title: string;
   date: string;
-  doctor: string;
+  doctor?: string;
   status: string;
+  isUploaded?: boolean;
 }
 
 export type CabinetTab = 'appointments' | 'medical-records' | 'profile';
