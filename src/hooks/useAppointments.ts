@@ -20,13 +20,22 @@ export function useAppointments() {
         .select('*');
         
       if (servicesError) throw servicesError;
-      setServices((servicesData || []).map((s: any) => ({
-        id: String(s.id),
-        title: s.title || s.name || '',
-        category: s.category || '',
-        price: s.price || 0,
-        duration_minutes: s.duration_minutes || 45
-      })));
+      setServices((servicesData || []).map((s: any) => {
+        const title = s.title || s.name || '';
+        let fallbackPrice = 12000;
+        if (title.toLowerCase().includes('консультация')) fallbackPrice = 15000;
+        if (title.toLowerCase().includes('жүктілікті')) fallbackPrice = 150000;
+        if (title.toLowerCase().includes('check-up')) fallbackPrice = 25000;
+        if (title.toLowerCase().includes('узи') || title.toLowerCase().includes('удз')) fallbackPrice = 10000;
+
+        return {
+          id: String(s.id),
+          title: title,
+          category: s.category || '',
+          price: s.price || fallbackPrice,
+          duration_minutes: s.duration_minutes || 45
+        };
+      }));
 
       // Fetch doctors safely
       const { data: doctorsData, error: doctorsError } = await supabase
