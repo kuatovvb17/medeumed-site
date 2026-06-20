@@ -6,7 +6,8 @@ import { useAppointments } from "@/hooks/useAppointments";
 import { Skeleton } from "@/components/ui/Skeleton";
 
 // Helper function to map categories to icons
-const getIconForCategory = (category: string) => {
+const getIconForCategory = (category: string | null | undefined) => {
+  if (!category) return LayoutGrid;
   const cat = category.toLowerCase();
   if (cat.includes('консультация')) return Stethoscope;
   if (cat.includes('диагностика')) return Microscope;
