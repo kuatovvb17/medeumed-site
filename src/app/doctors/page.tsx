@@ -6,13 +6,6 @@ import { Award, Clock, Star, CalendarDays } from "lucide-react";
 import { useAppointments } from "@/hooks/useAppointments";
 import { Skeleton } from "@/components/ui/Skeleton";
 
-// Image mapping for specific doctors
-const doctorImages: Record<string, string> = {
-  "Алия Султанова": "https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=600&auto=format&fit=crop",
-  "Зарина Ахметова": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop",
-  "Мадина Ибраева": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=600&auto=format&fit=crop"
-};
-
 const defaultImage = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&auto=format&fit=crop";
 
 export default function DoctorsPage() {
@@ -63,10 +56,8 @@ export default function DoctorsPage() {
                   </div>
                 </div>
               ))
-            : doctors.map((doctor) => {
-                // Try to find a matching image by checking if doctor.full_name contains the key
-                const matchedKey = Object.keys(doctorImages).find(name => doctor.full_name.includes(name));
-                const imageUrl = matchedKey ? doctorImages[matchedKey] : defaultImage;
+              : doctors.map((doctor) => {
+                const imageUrl = doctor.avatar_url || defaultImage;
 
                 return (
                   <div
@@ -99,14 +90,14 @@ export default function DoctorsPage() {
                         {doctor.specialty}
                       </p>
                       <p className="text-slate-500 text-sm leading-relaxed mb-6 font-light flex-1">
-                        Жоғары білікті маман. Әйелдер денсаулығын сақтау және емдеу бағытында кәсіби кеңес береді.
+                        {doctor.bio || "Жоғары білікті маман. Әйелдер денсаулығын сақтау және емдеу бағытында кәсіби кеңес береді."}
                       </p>
 
                       {/* Stats */}
                       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 border-t border-slate-100/80 mb-6">
                         <div className="flex items-center gap-2 text-slate-600">
                           <Clock className="w-4 h-4 text-[#0F4C3A]" />
-                          <span className="text-sm font-medium">10+ жыл</span>
+                          <span className="text-sm font-medium">{doctor.experience_years ? `${doctor.experience_years}+ жыл` : '10+ жыл'}</span>
                         </div>
                         <div className="flex items-center gap-2 text-slate-600">
                           <Star className="w-4 h-4 text-amber-400 fill-amber-400" />

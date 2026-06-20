@@ -14,7 +14,7 @@ export function useAppointments() {
     try {
       setLoading(true);
       const [doctorsRes, servicesRes] = await Promise.all([
-        supabase.from('doctors').select('id, full_name, specialty'),
+        supabase.from('doctors').select('id, full_name, specialty, avatar_url, bio, experience_years'),
         supabase.from('services').select('id, title, category, price'),
       ]);
 
@@ -26,6 +26,9 @@ export function useAppointments() {
           id: d.id,
           full_name: d.full_name,
           specialty: d.specialty,
+          avatar_url: d.avatar_url,
+          bio: d.bio,
+          experience_years: d.experience_years,
         }))
       );
       

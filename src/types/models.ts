@@ -4,6 +4,9 @@ export interface Doctor {
   id: string;
   full_name: string;
   specialty: string;
+  avatar_url?: string;
+  bio?: string;
+  experience_years?: number;
 }
 
 export interface Service {
