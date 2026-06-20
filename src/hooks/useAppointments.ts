@@ -23,6 +23,21 @@ export interface Slot {
   is_booked: boolean;
 }
 
+export interface Appointment {
+  id: string;
+  full_name: string;
+  phone_number: string;
+  service_type: string;
+  appointment_date: string;
+  appointment_time: string;
+  status: string;
+  created_at: string;
+  doctors?: {
+    full_name: string;
+    specialty: string;
+  };
+}
+
 export function useAppointments() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [services, setServices] = useState<Service[]>([]);
@@ -42,14 +57,16 @@ export function useAppointments() {
         supabase.from('services').select('id, title, category, price')
       ]);
 
-      if (doctorsRes.error) throw doctorsRes.error;
-      if (servicesRes.error) throw servicesRes.error;
+      if (doctorsRes.error) console.error('Doctors fetch error:', doctorsRes.error);
+      if (servicesRes.error) console.error('Services fetch error:', servicesRes.error);
 
       setDoctors(doctorsRes.data || []);
       setServices(servicesRes.data || []);
     } catch (error) {
-      console.error(error);
-      toast.error('Деректерді жүктеу кезінде қате кетті');
+      console.error('Unhandled error in fetchInitialData:', error);
+      // Graceful fallback to empty arrays without crashing
+      setDoctors([]);
+      setServices([]);
     } finally {
       setLoading(false);
     }
@@ -65,11 +82,36 @@ export function useAppointments() {
         .eq('is_booked', false)
         .order('slot_time');
 
-      if (error) throw error;
+      if (error) {
+        console.error('Slots fetch error:', error);
+        setAvailableSlots([]);
+        return;
+      }
       setAvailableSlots(data || []);
     } catch (error) {
       console.error(error);
-      toast.error('Бос уақыттарды жүктеу кезінде қате кетті');
+      setAvailableSlots([]);
+    }
+  };
+
+  const fetchPatientAppointments = async (): Promise<Appointment[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('appointments')
+        .select(`
+          *,
+          doctors ( full_name, specialty )
+        `)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Appointments fetch error:', error);
+        return [];
+      }
+      return data as any || [];
+    } catch (error) {
+      console.error('Unhandled error in fetchPatientAppointments:', error);
+      return [];
     }
   };
 
@@ -78,6 +120,7 @@ export function useAppointments() {
     patientPhone,
     doctorId,
     serviceId,
+    serviceTitle,
     slotId,
     appointmentDate,
     appointmentTime
@@ -86,6 +129,7 @@ export function useAppointments() {
     patientPhone: string;
     doctorId: string;
     serviceId: string;
+    serviceTitle: string;
     slotId: string;
     appointmentDate: string;
     appointmentTime: string;
@@ -98,14 +142,13 @@ export function useAppointments() {
     try {
       setBookingLoading(true);
 
-      // 1. Создаем запись в appointments
       const { error: appointmentError } = await (supabase as any)
         .from('appointments')
         .insert([{
-          patient_name: patientName,
-          patient_phone: patientPhone,
+          full_name: patientName,
+          phone_number: patientPhone,
+          service_type: serviceTitle,
           doctor_id: doctorId,
-          service_id: serviceId,
           appointment_date: appointmentDate,
           appointment_time: appointmentTime,
           status: 'pending'
@@ -113,7 +156,6 @@ export function useAppointments() {
 
       if (appointmentError) throw appointmentError;
 
-      // 2. Обновляем слот на is_booked = true
       const { error: slotError } = await (supabase as any)
         .from('available_slots')
         .update({ is_booked: true })
@@ -121,7 +163,6 @@ export function useAppointments() {
 
       if (slotError) throw slotError;
 
-      toast.success('Сәтті жазылды!');
       return true;
     } catch (error) {
       console.error(error);
@@ -139,6 +180,7 @@ export function useAppointments() {
     loading,
     bookingLoading,
     fetchAvailableSlots,
+    fetchPatientAppointments,
     bookAppointment
   };
 }

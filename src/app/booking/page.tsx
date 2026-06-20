@@ -44,17 +44,21 @@ export default function BookingPage() {
       return;
     }
 
+    const selectedService = services.find(s => s.id === formData.serviceId)?.title || '';
+
     const success = await bookAppointment({
       patientName: formData.name,
       patientPhone: formData.phone,
       doctorId: formData.doctorId,
       serviceId: formData.serviceId,
+      serviceTitle: selectedService,
       slotId: formData.slotId,
       appointmentDate: formData.date,
       appointmentTime: formData.time
     });
 
     if (success) {
+      toast.success('Сіздің өтініміңіз сәтті қабылданды!');
       setIsSubmitted(true);
     }
   };

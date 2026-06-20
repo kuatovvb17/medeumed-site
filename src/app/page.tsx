@@ -6,41 +6,41 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center pt-20 pb-32">
+      <section className="relative min-h-screen flex items-center pt-32 pb-40">
         {/* Animated Mesh Gradients Background */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#fce4ec] opacity-60 blur-[100px] animate-blob"></div>
-          <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-[#e8f5e9] opacity-60 blur-[120px] animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-[-20%] left-[20%] w-[60%] h-[50%] rounded-full bg-[#fdf8e1] opacity-50 blur-[100px] animate-blob animation-delay-4000"></div>
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#fce4ec] opacity-60 blur-[120px] animate-blob"></div>
+          <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-[#e8f5e9] opacity-60 blur-[140px] animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-[-20%] left-[20%] w-[60%] h-[50%] rounded-full bg-[#fdf8e1] opacity-50 blur-[120px] animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="container mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="container mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-20 items-center">
           <div className="z-10 relative max-w-2xl animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md border border-white/60 text-emerald-800 font-medium text-sm mb-8 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/40 backdrop-blur-xl border border-white/60 text-emerald-900 font-medium text-sm mb-10 shadow-sm">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
               Жоғары санатты гинекология орталығы
             </div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-8 leading-[1.1] font-serif">
+            <h1 className="text-6xl md:text-7xl lg:text-[5.5rem] font-bold text-slate-900 mb-10 leading-[1.05] tracking-tight font-serif">
               Әйелдер денсаулығына <br/>
-              <span className="text-emerald-700 italic font-normal">сенімді қамқорлық</span>
+              <span className="text-emerald-800 italic font-medium tracking-normal">сенімді қамқорлық</span>
             </h1>
             
-            <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
+            <p className="text-2xl text-slate-600 mb-12 leading-relaxed font-light max-w-xl">
               Жоғары санатты дәрігерлер, заманауи диагностика және әрбір науқасқа премиум деңгейдегі жеке көзқарас. "MedeuMed" – сіздің сенімді таңдауыңыз.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-5">
-              <Link href="/booking" className="bg-emerald-700 text-white px-8 py-4 rounded-full text-center hover:bg-emerald-800 hover:-translate-y-1 transition-all duration-300 font-semibold flex items-center justify-center gap-3 shadow-[0_8px_30px_rgb(4,120,87,0.3)]">
-                Қабылдауға жазылу <ArrowRight size={20} />
+            <div className="flex flex-col sm:flex-row gap-6">
+              <Link href="/booking" className="bg-emerald-800 text-white px-10 py-5 rounded-full text-center hover:bg-emerald-900 hover:-translate-y-2 transition-all duration-500 ease-in-out font-semibold flex items-center justify-center gap-3 shadow-[0_20px_40px_-10px_rgb(4,120,87,0.4)] text-lg">
+                Қабылдауға жазылу <ArrowRight size={22} />
               </Link>
-              <Link href="/services" className="bg-white/60 backdrop-blur-md text-emerald-800 border border-emerald-200/50 px-8 py-4 rounded-full text-center hover:bg-white transition-all duration-300 font-semibold shadow-sm">
+              <Link href="/services" className="bg-white/40 backdrop-blur-xl text-emerald-900 border border-white/60 px-10 py-5 rounded-full text-center hover:bg-white hover:-translate-y-2 transition-all duration-500 ease-in-out font-semibold shadow-sm text-lg">
                 Қызметтерді көру
               </Link>
             </div>
           </div>
           
-          <div className="relative h-[550px] lg:h-[700px] w-full rounded-[2.5rem] overflow-hidden shadow-soft animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="relative h-[600px] lg:h-[800px] w-full rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <Image 
               src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
               alt="MedeuMed дәрігері"
