@@ -101,10 +101,9 @@ export default function BookingPage() {
 
     return (
       <div className="bg-[#FDFBF7] min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Animated Mesh Gradients Background */}
-        <div className="absolute top-[20%] left-[20%] w-[40%] h-[60%] rounded-full bg-[#e8f5e9] opacity-60 blur-[140px] -z-10 animate-blob" />
+        {/* Clean Background */}
         
-        <div className="bg-white/60 backdrop-blur-xl p-10 md:p-14 rounded-[3rem] shadow-luxury max-w-xl w-full text-center border border-white/40 animate-slide-in">
+        <div className="bg-white p-10 md:p-14 rounded-xl shadow-medical max-w-xl w-full text-center border border-slate-200 animate-slide-in">
           <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
             <CheckCircle className="text-[#0F4C3A] w-12 h-12" />
           </div>
@@ -131,21 +130,19 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="bg-[#FDFBF7] min-h-screen pt-36 pb-24 relative overflow-hidden">
-      {/* Animated Mesh Gradient Background */}
-      <div className="absolute top-[10%] right-[10%] w-[30%] h-[50%] rounded-full bg-[#fce4ec] opacity-40 blur-[140px] -z-10 animate-blob" />
-      <div className="absolute bottom-[10%] left-[10%] w-[40%] h-[40%] rounded-full bg-[#e8f5e9] opacity-50 blur-[140px] -z-10 animate-blob" style={{ animationDelay: '3s' }} />
+    <div className="bg-slate-50 min-h-screen pt-36 pb-24 relative overflow-hidden">
+      {/* Clean Background */}
 
       <div className="container mx-auto px-4 max-w-4xl relative z-10">
         <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/40 backdrop-blur-xl text-[#0F4C3A] font-medium text-sm mb-6 shadow-sm border border-white/50">
+          <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-md bg-emerald-50 text-[#0F4C3A] font-medium text-sm mb-6 border border-emerald-100">
             <Sparkles size={16} /> Премиум қызмет
           </div>
           <h1 className="text-5xl md:text-6xl font-bold font-serif text-slate-900 mb-4 tracking-tight">Қабылдауға жазылу</h1>
           <p className="text-slate-400 text-lg font-light max-w-xl mx-auto">Өзіңізге ыңғайлы уақытты таңдап, жоғары білікті мамандарға онлайн жазылыңыз</p>
         </div>
 
-        <div className="bg-white/60 backdrop-blur-xl rounded-[3rem] shadow-luxury border border-white/40 p-8 md:p-14 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="bg-white rounded-xl shadow-medical border border-slate-200 p-8 md:p-14 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           {/* Custom Progress Bar */}
           <div className="flex items-center justify-between mb-16 relative px-2 md:px-8">
             <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-1.5 bg-slate-100 -z-10 rounded-full" />
@@ -156,10 +153,10 @@ export default function BookingPage() {
             {[1, 2, 3].map((num) => (
               <div 
                 key={num} 
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-500 shadow-sm ${
+                className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg transition-all duration-300 shadow-sm ${
                   step >= num 
-                    ? 'bg-[#0F4C3A] text-white scale-110 shadow-lg shadow-emerald-900/20' 
-                    : 'bg-white text-slate-400 border-2 border-slate-100/50'
+                    ? 'bg-[#0F4C3A] text-white shadow-md' 
+                    : 'bg-white text-slate-400 border border-slate-200'
                 }`}
               >
                 {step > num ? <CheckCircle size={20} /> : num}

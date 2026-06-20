@@ -14,6 +14,7 @@ export interface Service {
   title: string;
   category: string;
   price: number;
+  duration_minutes?: number;
 }
 
 export interface Slot {

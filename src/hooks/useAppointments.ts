@@ -15,7 +15,7 @@ export function useAppointments() {
       setLoading(true);
       const [doctorsRes, servicesRes] = await Promise.all([
         supabase.from('doctors').select('id, full_name, specialty, avatar_url, bio, experience_years'),
-        supabase.from('services').select('id, title, category, price'),
+        supabase.from('services').select('id, title, category, price, duration_minutes'),
       ]);
 
       if (doctorsRes.error) console.error('Doctors fetch error:', doctorsRes.error);
@@ -38,6 +38,7 @@ export function useAppointments() {
           title: s.title,
           category: s.category,
           price: s.price,
+          duration_minutes: s.duration_minutes,
         }))
       );
     } catch (error) {
