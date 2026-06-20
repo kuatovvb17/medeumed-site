@@ -164,16 +164,16 @@ export function useAppointments() {
       const { error: appointmentError } = await supabase
         .from('appointments')
         .insert([{
-          full_name: patientName,
-          phone_number: patientPhone,
-          service_type: serviceTitle,
-          doctor_id: doctorId,
-          appointment_date: appointmentDate,
-          appointment_time: appointmentTime,
+          client_name: patientName,
+          phone: patientPhone,
+          service_id: parseInt(serviceId, 10) || 1, // Ensure it's an integer
           status: 'pending',
         }]);
 
-      if (appointmentError) throw appointmentError;
+      if (appointmentError) {
+        console.error("🔴 Supabase Booking Insert Error:", appointmentError);
+        throw appointmentError;
+      }
 
       if (slotId.includes('-') && slotId.length > 10) {
         // Only attempt to update real UUID slots
