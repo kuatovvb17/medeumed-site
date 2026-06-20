@@ -19,7 +19,10 @@ export function useAppointments() {
         .from('services')
         .select('*');
         
-      if (servicesError) throw servicesError;
+      if (servicesError) {
+        console.error("🔴 Supabase Services Error:", servicesError.message, servicesError.details, servicesError.hint);
+        throw servicesError;
+      }
       setServices((servicesData || []).map((s: any) => {
         const title = s.title || s.name || '';
         let fallbackPrice = 12000;
@@ -42,7 +45,10 @@ export function useAppointments() {
         .from('doctors')
         .select('*');
         
-      if (doctorsError) throw doctorsError;
+      if (doctorsError) {
+        console.error("🔴 Supabase Doctors Error:", doctorsError.message, doctorsError.details, doctorsError.hint);
+        throw doctorsError;
+      }
       setDoctors((doctorsData || []).map((d: any) => ({
         id: String(d.id),
         full_name: d.full_name || d.name || '',
@@ -52,8 +58,9 @@ export function useAppointments() {
         experience_years: d.experience_years || 10
       })));
 
-    } catch (error) {
-      console.error("Supabase data fetch failed:", error);
+    } catch (error: any) {
+      console.error("🔴 Supabase Data Fetch Failed:", error);
+      console.error("ℹ️ Check your Supabase RLS (Row Level Security) policies or Environment Variables.");
       
       // EMERGENCY FALLBACK: Populate hardcoded data if Supabase client fails to connect
       setServices([

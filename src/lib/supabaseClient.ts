@@ -1,18 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://uoqeavntapyfwizdzddj.supabase.co';
-const supabaseAnonKey = 'sb_publishable_z_0AS9CVuTJOlPTuG8uBMw_TX5RepWq';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl) {
+  console.error("CRITICAL ERROR: NEXT_PUBLIC_SUPABASE_URL is missing");
   throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_URL');
 }
 
 if (!supabaseAnonKey) {
+  console.error("CRITICAL ERROR: NEXT_PUBLIC_SUPABASE_ANON_KEY is missing");
   throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY');
 }
-
-console.log("DEBUG: Using Supabase URL:", supabaseUrl);
-console.log("DEBUG: Using Anon Key starts with:", supabaseAnonKey.substring(0, 10));
 
 // Create a single supabase client for interacting with your database
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
