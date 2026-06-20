@@ -79,8 +79,8 @@ export default function Home() {
             style={{ animationDelay: '0.2s' }}
           >
             <Image
-              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop"
-              alt="MedeuMed дәрігері"
+              src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2070&auto=format&fit=crop"
+              alt="MedeuMed заманауи клиникасы"
               fill
               priority
               className="object-cover hover:scale-105 transition-transform duration-1000"

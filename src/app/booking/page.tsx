@@ -76,7 +76,7 @@ export default function BookingPage() {
     });
 
     if (success) {
-      toast.success('Сіздің өтініміңіз сәтті қабылданды!');
+      toast.success('Сіз сәтті жазылдыңыз!');
       setIsSubmitted(true);
     }
   };

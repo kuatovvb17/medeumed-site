@@ -104,27 +104,21 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Menu */}
       <div
-        className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-in-out lg:hidden ${
-          isMobileMenuOpen
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-4 opacity-0"
+        className={`fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-500 ease-in-out lg:hidden ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div
-          className={`bg-white/95 backdrop-blur-xl border-b border-white/40 shadow-lg ${
-            isScrolled ? "pt-20" : "pt-24"
-          } pb-8 px-6`}
-        >
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col h-full pt-28 pb-8 px-8">
+          <div className="flex flex-col gap-4 flex-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative rounded-2xl px-4 py-3.5 text-base font-medium transition-all duration-300 ${
+                  className={`relative rounded-2xl px-5 py-4 text-lg font-medium transition-all duration-300 ${
                     isActive
                       ? "bg-emerald-50/80 text-[#0F4C3A]"
                       : "text-slate-500 hover:bg-slate-50 hover:text-[#0F4C3A]"
@@ -140,12 +134,12 @@ export default function Navbar() {
               );
             })}
 
-            <div className="mt-4 px-4">
+            <div className="mt-8">
               <Link
                 href="/booking"
-                className="block w-full rounded-full bg-[#0F4C3A] px-7 py-3.5 text-center text-base font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-900/20"
+                className="block w-full rounded-full bg-[#0F4C3A] px-7 py-4 text-center text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-emerald-900/20"
               >
-                Жазылу
+                Қабылдауға жазылу
               </Link>
             </div>
           </div>
@@ -153,12 +147,12 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm lg:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
+      <div
+        className={`fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
     </header>
   );
 }
