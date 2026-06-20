@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Calendar, FileText, User, Clock, CheckCircle, Search, Settings, Shield, Activity, Bell } from 'lucide-react';
+import { Calendar, FileText, User, Clock, Shield, Activity, Bell } from 'lucide-react';
 import { useAppointments, Appointment } from '@/hooks/useAppointments';
 
 export default function DashboardPage() {
@@ -11,15 +11,15 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadAppointments();
-  }, []);
+    const loadAppointments = async () => {
+      setLoading(true);
+      const data = await fetchPatientAppointments();
+      setAppointments(data);
+      setLoading(false);
+    };
 
-  const loadAppointments = async () => {
-    setLoading(true);
-    const data = await fetchPatientAppointments();
-    setAppointments(data);
-    setLoading(false);
-  };
+    loadAppointments();
+  }, [fetchPatientAppointments]);
 
   const getStatusBadge = (status: string) => {
     switch(status) {

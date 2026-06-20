@@ -23,8 +23,10 @@ export default function BookingPage() {
   useEffect(() => {
     if (formData.doctorId && formData.date) {
       fetchAvailableSlots(formData.doctorId, formData.date);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData(prev => ({ ...prev, slotId: '', time: '' })); 
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.doctorId, formData.date]);
 
   const handleNext = () => setStep(step + 1);

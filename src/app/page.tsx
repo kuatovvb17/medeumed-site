@@ -27,7 +27,7 @@ export default function Home() {
             </h1>
             
             <p className="text-2xl text-slate-600 mb-12 leading-relaxed font-light max-w-xl">
-              Жоғары санатты дәрігерлер, заманауи диагностика және әрбір науқасқа премиум деңгейдегі жеке көзқарас. "MedeuMed" – сіздің сенімді таңдауыңыз.
+              Жоғары санатты дәрігерлер, заманауи диагностика және әрбір науқасқа премиум деңгейдегі жеке көзқарас. &quot;MedeuMed&quot; – сіздің сенімді таңдауыңыз.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6">

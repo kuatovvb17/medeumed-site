@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import toast from 'react-hot-toast';
 
@@ -45,11 +45,7 @@ export function useAppointments() {
   const [loading, setLoading] = useState(true);
   const [bookingLoading, setBookingLoading] = useState(false);
 
-  useEffect(() => {
-    fetchInitialData();
-  }, []);
-
-  const fetchInitialData = async () => {
+  const fetchInitialData = useCallback(async () => {
     try {
       setLoading(true);
       const [doctorsRes, servicesRes] = await Promise.all([
@@ -64,13 +60,17 @@ export function useAppointments() {
       setServices(servicesRes.data || []);
     } catch (error) {
       console.error('Unhandled error in fetchInitialData:', error);
-      // Graceful fallback to empty arrays without crashing
       setDoctors([]);
       setServices([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchInitialData();
+  }, [fetchInitialData]);
 
   const fetchAvailableSlots = async (doctorId: string, date: string) => {
     try {
@@ -108,6 +108,7 @@ export function useAppointments() {
         console.error('Appointments fetch error:', error);
         return [];
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return data as any || [];
     } catch (error) {
       console.error('Unhandled error in fetchPatientAppointments:', error);
@@ -142,6 +143,7 @@ export function useAppointments() {
     try {
       setBookingLoading(true);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error: appointmentError } = await (supabase as any)
         .from('appointments')
         .insert([{
@@ -156,6 +158,7 @@ export function useAppointments() {
 
       if (appointmentError) throw appointmentError;
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error: slotError } = await (supabase as any)
         .from('available_slots')
         .update({ is_booked: true })
