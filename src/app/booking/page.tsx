@@ -199,19 +199,12 @@ export default function BookingPage() {
                     <div 
                       key={doc.id}
                       onClick={() => setFormData({...formData, doctorId: doc.id})}
-                      className={`p-5 rounded-2xl border cursor-pointer transition-all duration-300 flex items-center gap-4 ${
+                      className={`p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
                         formData.doctorId === doc.id 
                           ? 'border-[#0F4C3A] bg-emerald-50/50 shadow-md ring-1 ring-[#0F4C3A]' 
                           : 'border-slate-100 bg-white hover:border-emerald-200 hover:shadow-sm'
                       }`}
                     >
-                      <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 overflow-hidden border-2 transition-colors ${formData.doctorId === doc.id ? 'border-[#0F4C3A] shadow-md' : 'border-white bg-slate-50 text-slate-400'}`}>
-                        {doc.avatar_url ? (
-                          <img src={doc.avatar_url} alt={doc.full_name} className="w-full h-full object-cover" />
-                        ) : (
-                          <User size={20} />
-                        )}
-                      </div>
                       <div>
                         <div className={`font-bold transition-colors ${formData.doctorId === doc.id ? 'text-[#0F4C3A]' : 'text-slate-800'}`}>{doc.full_name}</div>
                         <div className={`text-sm mt-1 transition-colors ${formData.doctorId === doc.id ? 'text-emerald-700' : 'text-slate-400'}`}>{doc.specialty}</div>

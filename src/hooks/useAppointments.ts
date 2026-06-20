@@ -103,23 +103,29 @@ export function useAppointments() {
     try {
       const { data, error } = await supabase
         .from('appointments')
-        .select(`*, doctors ( full_name, specialty )`)
+        .select(`*, doctors (*)`)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
       // Safely map data to standard interface
-      return (data || []).map((item: any) => ({
-        id: item.id,
-        full_name: item.full_name,
-        phone_number: item.phone_number,
-        service_type: item.service_type,
-        appointment_date: item.appointment_date,
-        appointment_time: item.appointment_time,
-        status: item.status,
-        created_at: item.created_at,
-        doctors: item.doctors ? (Array.isArray(item.doctors) ? item.doctors[0] : item.doctors) : undefined
-      }));
+      return (data || []).map((item: any) => {
+        const doctorInfo = item.doctors ? (Array.isArray(item.doctors) ? item.doctors[0] : item.doctors) : undefined;
+        if (doctorInfo && !doctorInfo.full_name && doctorInfo.name) {
+          doctorInfo.full_name = doctorInfo.name;
+        }
+        return {
+          id: item.id,
+          full_name: item.full_name,
+          phone_number: item.phone_number,
+          service_type: item.service_type,
+          appointment_date: item.appointment_date,
+          appointment_time: item.appointment_time,
+          status: item.status,
+          created_at: item.created_at,
+          doctors: doctorInfo
+        };
+      });
     } catch (error) {
       console.error('Unhandled error in fetchPatientAppointments:', error);
       return [];

@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
+
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
 
   return (
     <footer className="bg-slate-900 text-slate-400 pt-20 pb-10">

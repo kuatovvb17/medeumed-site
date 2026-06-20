@@ -50,13 +50,6 @@ export default function DoctorsPage() {
                     {/* Left: Info */}
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="w-16 h-16 rounded-full bg-emerald-50 text-[#0F4C3A] flex items-center justify-center shrink-0 overflow-hidden border-2 border-white shadow-md">
-                          {doctor.avatar_url ? (
-                            <img src={doctor.avatar_url} alt={doctor.full_name} className="w-full h-full object-cover" />
-                          ) : (
-                            <User size={24} />
-                          )}
-                        </div>
                         <h3 className="text-2xl font-bold text-slate-900">
                           {doctor.full_name}
                         </h3>
