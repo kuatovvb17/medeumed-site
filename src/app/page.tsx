@@ -4,111 +4,130 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative bg-emerald-50 py-20 overflow-hidden">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          <div className="z-10 relative">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-6 leading-tight font-serif">
-              Әйелдер денсаулығына <br/><span className="text-emerald-600">сенімді қамқорлық</span>
+      <section className="relative min-h-[90vh] flex items-center pt-20 pb-32">
+        {/* Animated Mesh Gradients Background */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#fce4ec] opacity-60 blur-[100px] animate-blob"></div>
+          <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-[#e8f5e9] opacity-60 blur-[120px] animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-[-20%] left-[20%] w-[60%] h-[50%] rounded-full bg-[#fdf8e1] opacity-50 blur-[100px] animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div className="container mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="z-10 relative max-w-2xl animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md border border-white/60 text-emerald-800 font-medium text-sm mb-8 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Жоғары санатты гинекология орталығы
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-8 leading-[1.1] font-serif">
+              Әйелдер денсаулығына <br/>
+              <span className="text-emerald-700 italic font-normal">сенімді қамқорлық</span>
             </h1>
-            <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
-              Жоғары санатты дәрігерлер, заманауи диагностика және әрбір науқасқа жеке көзқарас. "MedeuMed" – сіздің денсаулығыңыздың кепілі.
+            
+            <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
+              Жоғары санатты дәрігерлер, заманауи диагностика және әрбір науқасқа премиум деңгейдегі жеке көзқарас. "MedeuMed" – сіздің сенімді таңдауыңыз.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/booking" className="bg-emerald-600 text-white px-8 py-4 rounded-full text-center hover:bg-emerald-700 transition-all font-semibold flex items-center justify-center gap-2 shadow-lg shadow-emerald-200">
+            
+            <div className="flex flex-col sm:flex-row gap-5">
+              <Link href="/booking" className="bg-emerald-700 text-white px-8 py-4 rounded-full text-center hover:bg-emerald-800 hover:-translate-y-1 transition-all duration-300 font-semibold flex items-center justify-center gap-3 shadow-[0_8px_30px_rgb(4,120,87,0.3)]">
                 Қабылдауға жазылу <ArrowRight size={20} />
               </Link>
-              <Link href="/services" className="bg-white text-emerald-700 border border-emerald-200 px-8 py-4 rounded-full text-center hover:bg-emerald-50 transition-all font-semibold">
+              <Link href="/services" className="bg-white/60 backdrop-blur-md text-emerald-800 border border-emerald-200/50 px-8 py-4 rounded-full text-center hover:bg-white transition-all duration-300 font-semibold shadow-sm">
                 Қызметтерді көру
               </Link>
             </div>
           </div>
-          <div className="relative h-[400px] md:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-emerald-800/10 mix-blend-multiply z-10 rounded-2xl"></div>
+          
+          <div className="relative h-[550px] lg:h-[700px] w-full rounded-[2.5rem] overflow-hidden shadow-soft animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <Image 
               src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
               alt="MedeuMed дәрігері"
               fill
               priority
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-1000"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 to-transparent"></div>
+            
+            {/* Floating Glassmorphism Cards */}
+            <div className="absolute bottom-10 left-10 glass px-6 py-4 rounded-2xl flex items-center gap-4 animate-float">
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-yellow-500 shadow-sm">
+                <Star className="fill-current" size={24} />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-slate-800 font-serif">5.0</p>
+                <p className="text-slate-600 text-sm font-medium">Пациенттер рейтингі</p>
+              </div>
+            </div>
+
+            <div className="absolute top-10 right-10 glass px-6 py-4 rounded-2xl flex items-center gap-4 animate-float" style={{ animationDelay: '1.5s' }}>
+              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 shadow-sm">
+                <Shield size={24} />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-slate-800 font-serif">15+ жыл</p>
+                <p className="text-slate-600 text-sm font-medium">Орташа жұмыс өтілі</p>
+              </div>
+            </div>
           </div>
         </div>
-        
-        {/* Декоративные элементы */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-emerald-100 rounded-full blur-3xl opacity-50 z-0"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-teal-100 rounded-full blur-3xl opacity-50 z-0"></div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4 font-serif">Неге бізді таңдайды?</h2>
-            <p className="text-slate-600">Біз әрбір пациенттің жайлылығы мен қауіпсіздігіне баса назар аударамыз</p>
+      <section className="py-32 relative">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-20 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-serif">Неге бізді таңдайды?</h2>
+            <p className="text-xl text-slate-600 font-light">Біз әрбір пациенттің жайлылығы мен қауіпсіздігіне баса назар аудара отырып, медициналық қызметтің ең жоғары стандартын ұсынамыз.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-emerald-50 p-8 rounded-2xl hover:shadow-lg transition-shadow border border-emerald-100">
-              <div className="bg-emerald-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
-                <Stethoscope className="text-emerald-600" size={28} />
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              { icon: <Stethoscope size={32} />, title: 'Тәжірибелі дәрігерлер', desc: 'Біздің мамандардың орташа жұмыс өтілі 15 жылдан асады. Үнемі Еуропа мен АҚШ-та біліктіліктерін арттырады.' },
+              { icon: <Activity size={32} />, title: 'Заманауи жабдықтар', desc: 'Дәлдігі жоғары сараптамалық кластағы УДЗ аппараттары және соңғы үлгідегі зертханалық құрылғылар.' },
+              { icon: <Heart size={32} />, title: 'Премиум көзқарас', desc: 'Әрбір науқасқа ерекше назар аударамыз. Құпиялылыққа және толық жайлылыққа 100% кепілдік береміз.' }
+            ].map((feature, i) => (
+              <div key={i} className="bg-white/80 backdrop-blur-sm p-10 rounded-[2rem] hover:-translate-y-2 hover:shadow-soft transition-all duration-500 border border-white shadow-sm group">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mb-8 group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-500 shadow-sm">
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4 font-serif">{feature.title}</h3>
+                <p className="text-slate-600 leading-relaxed font-light text-lg">
+                  {feature.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3 font-serif">Тәжірибелі дәрігерлер</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Біздің мамандардың орташа жұмыс өтілі 15 жылдан асады. Үнемі біліктіліктерін арттырады.
-              </p>
-            </div>
-            
-            <div className="bg-emerald-50 p-8 rounded-2xl hover:shadow-lg transition-shadow border border-emerald-100">
-              <div className="bg-emerald-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
-                <Activity className="text-emerald-600" size={28} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3 font-serif">Заманауи жабдықтар</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Дәлдігі жоғары сараптамалық кластағы УДЗ (УЗИ) аппараттары және жаңа зертханалық құрылғылар.
-              </p>
-            </div>
-            
-            <div className="bg-emerald-50 p-8 rounded-2xl hover:shadow-lg transition-shadow border border-emerald-100">
-              <div className="bg-emerald-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
-                <Heart className="text-emerald-600" size={28} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3 font-serif">Жеке көзқарас</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Әрбір науқасқа ерекше назар аударамыз. Құпиялылыққа және толық жайлылыққа кепілдік береміз.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+      <section className="py-32 bg-white relative">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 animate-fade-in-up">
             <div className="max-w-2xl">
-              <h2 className="text-3xl font-bold text-slate-800 mb-4 font-serif">Танымал қызметтер</h2>
-              <p className="text-slate-600">Клиникамызда көрсетілетін негізгі медициналық қызметтер</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-serif">Танымал қызметтер</h2>
+              <p className="text-xl text-slate-600 font-light">Орталығымызда көрсетілетін негізгі медициналық бағыттар</p>
             </div>
-            <Link href="/services" className="mt-4 md:mt-0 text-emerald-600 font-semibold hover:text-emerald-700 flex items-center gap-1 group">
-              Барлығын көру <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <Link href="/services" className="mt-6 md:mt-0 px-6 py-3 rounded-full border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center gap-2 group">
+              Барлық каталогты ашу <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Акушерлік", desc: "Жүктілікті жоспарлау және жүргізу", icon: <Baby size={24} /> },
-              { title: "Гинекология", desc: "Ауруларды диагностикалау және емдеу", icon: <Heart size={24} /> },
-              { title: "УДЗ (УЗИ)", desc: "Барлық органдарды ультрадыбыстық зерттеу", icon: <Activity size={24} /> },
-              { title: "Анализдер", desc: "Зертханалық диагностиканың барлық түрлері", icon: <Shield size={24} /> },
+              { title: "Акушерлік", desc: "Жүктілікті жоспарлау және премиум сүйемелдеу", icon: <Baby size={28} /> },
+              { title: "Гинекология", desc: "Ауруларды заманауи тәсілмен емдеу", icon: <Heart size={28} /> },
+              { title: "УДЗ (УЗИ)", desc: "Сараптамалық деңгейдегі ультрадыбыстық зерттеу", icon: <Activity size={28} /> },
+              { title: "Анализдер", desc: "Зертханалық диагностиканың барлық түрлері", icon: <Shield size={28} /> },
             ].map((service, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all group cursor-pointer border border-slate-100">
-                <div className="bg-emerald-50 w-12 h-12 rounded-lg flex items-center justify-center text-emerald-600 mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+              <div key={i} className="bg-[#FAF9F6] p-8 rounded-[2rem] hover:bg-emerald-700 hover:shadow-soft transition-all duration-500 group cursor-pointer border border-transparent hover:border-emerald-600">
+                <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-emerald-700 mb-6 group-hover:scale-110 transition-transform duration-500 shadow-sm">
                   {service.icon}
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 mb-2 font-serif">{service.title}</h3>
-                <p className="text-slate-500 text-sm">{service.desc}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3 font-serif group-hover:text-white transition-colors duration-300">{service.title}</h3>
+                <p className="text-slate-600 font-light group-hover:text-emerald-50 transition-colors duration-300 leading-relaxed">{service.desc}</p>
               </div>
             ))}
           </div>
@@ -116,19 +135,29 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-emerald-700 relative overflow-hidden">
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-serif">Денсаулығыңызды бізге сеніп тапсырыңыз</h2>
-          <p className="text-emerald-100 mb-10 max-w-2xl mx-auto text-lg">
-            Кезексіз, өзіңізге ыңғайлы уақытқа онлайн жазылыңыз. Біздің мамандар сізге көмектесуге әрқашан дайын.
-          </p>
-          <Link href="/booking" className="inline-flex bg-white text-emerald-700 px-8 py-4 rounded-full hover:bg-emerald-50 transition-all font-bold text-lg items-center gap-2 shadow-xl">
-            Қабылдауға жазылу <ArrowRight size={20} />
-          </Link>
+      <section className="py-32 relative overflow-hidden">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop" 
+            alt="Clinic Interior"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-emerald-900/80 backdrop-blur-sm"></div>
         </div>
-        
-        {/* Background Patterns */}
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
+
+        <div className="container mx-auto px-4 md:px-8 text-center relative z-10 animate-fade-in-up">
+          <div className="max-w-3xl mx-auto glass p-12 md:p-16 rounded-[3rem] border border-white/20">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-serif">Денсаулығыңызды бізге сеніп тапсырыңыз</h2>
+            <p className="text-slate-700 mb-10 text-xl font-light leading-relaxed">
+              Кезексіз, өзіңізге ыңғайлы уақытқа онлайн жазылыңыз. Біздің мамандар сізге жоғары деңгейде қызмет көрсетуге әрқашан дайын.
+            </p>
+            <Link href="/booking" className="inline-flex bg-emerald-700 text-white px-10 py-5 rounded-full hover:bg-emerald-800 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(4,120,87,0.4)] transition-all duration-300 font-bold text-lg items-center gap-3">
+              Қабылдауға жазылу <ArrowRight size={24} />
+            </Link>
+          </div>
+        </div>
       </section>
     </div>
   );

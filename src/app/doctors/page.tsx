@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Star, Award, Calendar } from 'lucide-react';
+import { Award, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 export const metadata = {
@@ -44,42 +44,60 @@ export default function DoctorsPage() {
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-20">
+    <div className="pb-32 overflow-hidden">
       {/* Header */}
-      <div className="bg-emerald-700 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold font-serif mb-4">Біздің Дәрігерлер</h1>
-          <p className="text-emerald-100 max-w-2xl mx-auto text-lg">
-            Сіздің денсаулығыңыз – өз ісінің нағыз кәсіпқойларының сенімді қолында. Біздің дәрігерлер үнемі халықаралық конгрестерде біліктілігін арттырады.
+      <div className="relative pt-32 pb-24 text-center">
+        <div className="absolute top-[-20%] left-[20%] w-[50%] h-[150%] rounded-full bg-[#fdf8e1] opacity-60 blur-[120px] -z-10 animate-blob"></div>
+        <div className="absolute top-[10%] right-[10%] w-[40%] h-[100%] rounded-full bg-[#e8f5e9] opacity-50 blur-[100px] -z-10 animate-blob animation-delay-2000"></div>
+        
+        <div className="container mx-auto px-4 md:px-8 animate-fade-in-up">
+          <h1 className="text-5xl md:text-6xl font-bold font-serif text-slate-900 mb-6">Біздің Дәрігерлер</h1>
+          <p className="text-slate-600 max-w-3xl mx-auto text-xl font-light leading-relaxed">
+            Сіздің денсаулығыңыз – өз ісінің нағыз кәсіпқойларының сенімді қолында. Біздің мамандар халықаралық хаттамалармен жұмыс істейді.
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-16">
-        <div className="grid md:grid-cols-2 gap-10">
-          {doctors.map((doctor) => (
-            <div key={doctor.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow">
-              <div className="sm:w-2/5 h-64 sm:h-auto relative">
+      <div className="container mx-auto px-4 md:px-8 mt-8">
+        <div className="grid md:grid-cols-2 gap-12">
+          {doctors.map((doctor, idx) => (
+            <div 
+              key={doctor.id} 
+              className="bg-white/80 backdrop-blur-md rounded-[2.5rem] shadow-soft border border-white overflow-hidden flex flex-col xl:flex-row group hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 animate-fade-in-up"
+              style={{ animationDelay: `${idx * 0.15}s` }}
+            >
+              <div className="xl:w-2/5 h-80 xl:h-auto relative overflow-hidden">
                 <Image 
                   src={doctor.image} 
                   alt={doctor.name}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                  sizes="(max-width: 1280px) 100vw, 40vw"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
-              <div className="sm:w-3/5 p-6 flex flex-col justify-between">
+              <div className="xl:w-3/5 p-8 md:p-10 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-1 font-serif">{doctor.name}</h3>
-                  <p className="text-emerald-600 font-medium mb-4">{doctor.specialty}</p>
-                  <p className="text-slate-600 mb-4 text-sm leading-relaxed">{doctor.description}</p>
-                  <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
-                    <Award size={16} className="text-emerald-500" />
-                    <span>Жұмыс өтілі: <strong className="text-slate-700">{doctor.experience}</strong></span>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2 font-serif leading-tight">{doctor.name}</h3>
+                  <p className="text-emerald-700 font-medium mb-5 text-lg">{doctor.specialty}</p>
+                  <p className="text-slate-600 mb-8 text-[1.05rem] font-light leading-relaxed">{doctor.description}</p>
+                  
+                  <div className="flex items-center gap-3 text-slate-700 mb-10 bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100/50">
+                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                      <Award size={20} className="text-emerald-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-medium uppercase tracking-wide">Жұмыс өтілі</p>
+                      <p className="font-bold text-slate-800 text-lg">{doctor.experience}</p>
+                    </div>
                   </div>
                 </div>
-                <Link href="/booking" className="w-full bg-slate-50 text-emerald-700 py-3 rounded-xl text-center font-semibold hover:bg-emerald-50 transition-colors border border-emerald-100">
-                  Қабылдауға жазылу
+                
+                <Link 
+                  href="/booking" 
+                  className="flex items-center justify-center gap-2 w-full bg-white text-emerald-800 border-2 border-emerald-100 py-4 rounded-2xl font-bold text-lg hover:bg-emerald-700 hover:border-emerald-700 hover:text-white transition-all duration-300 group/btn"
+                >
+                  Қабылдауға жазылу <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
