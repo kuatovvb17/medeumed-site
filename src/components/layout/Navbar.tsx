@@ -1,110 +1,164 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
 
-export function Navbar() {
+const navLinks = [
+  { label: "Басты бет", href: "/" },
+  { label: "Қызметтер", href: "/services" },
+  { label: "Дәрігерлер", href: "/doctors" },
+  { label: "Кабинет", href: "/dashboard" },
+];
+
+export default function Navbar() {
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const links = [
-    { href: '/', label: 'Басты бет' },
-    { href: '/services', label: 'Қызметтер' },
-    { href: '/doctors', label: 'Дәрігерлер' },
-    { href: '/dashboard', label: 'Кабинет' },
-  ];
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-white/80 backdrop-blur-xl border-b border-white/40 shadow-sm' 
-        : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-4 md:px-8">
-        <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-20' : 'h-24'}`}>
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="text-3xl font-serif font-bold tracking-tight text-slate-800 transition-transform group-hover:scale-[1.02]">
-              <span className="text-emerald-700">Medeu</span>Med
-            </span>
-          </Link>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+        isScrolled
+          ? "h-20 bg-white/70 backdrop-blur-xl border-b border-white/40 shadow-sm"
+          : "h-24 bg-transparent"
+      }`}
+    >
+      <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="relative z-10">
+          <span className="font-serif text-3xl font-bold tracking-tight">
+            <span className="text-[#0F4C3A]">Medeu</span>
+            <span className="text-slate-800">Med</span>
+          </span>
+        </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-10">
-            <div className="flex space-x-8">
-              {links.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="relative group font-medium text-[15px]"
-                  >
-                    <span className={`transition-colors duration-300 ${isActive ? 'text-emerald-700' : 'text-slate-600 group-hover:text-emerald-700'}`}>
-                      {link.label}
-                    </span>
-                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-emerald-600 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-                  </Link>
-                );
-              })}
-            </div>
-            <Link 
-              href="/booking" 
-              className="bg-emerald-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-emerald-800 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-700/30 transition-all duration-300"
-            >
-              Жазылу
-            </Link>
-          </div>
+        {/* Desktop Navigation */}
+        <div className="hidden items-center gap-10 lg:flex">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative py-2 text-sm font-medium transition-colors duration-300 ${
+                  isActive
+                    ? "text-[#0F4C3A]"
+                    : "text-slate-500 hover:text-[#0F4C3A]"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#0F4C3A]" />
+                )}
+              </Link>
+            );
+          })}
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2 text-slate-600 rounded-full hover:bg-slate-100 transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          <Link
+            href="/booking"
+            className="rounded-full bg-[#0F4C3A] px-7 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-900/20"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            Жазылу
+          </Link>
         </div>
 
-        {/* Mobile Nav */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-100 shadow-xl animate-in slide-in-from-top-2 duration-300">
-            <div className="flex flex-col p-6 space-y-4">
-              {links.map((link) => (
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="relative z-10 rounded-xl p-2 text-slate-700 transition-all duration-300 hover:bg-white/50 lg:hidden"
+          aria-label={isMobileMenuOpen ? "Мәзірді жабу" : "Мәзірді ашу"}
+        >
+          {isMobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-in-out lg:hidden ${
+          isMobileMenuOpen
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-4 opacity-0"
+        }`}
+      >
+        <div
+          className={`bg-white/95 backdrop-blur-xl border-b border-white/40 shadow-lg ${
+            isScrolled ? "pt-20" : "pt-24"
+          } pb-8 px-6`}
+        >
+          <div className="flex flex-col gap-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`font-medium p-3 rounded-xl transition-colors ${
-                    pathname === link.href 
-                      ? 'bg-emerald-50 text-emerald-700' 
-                      : 'text-slate-600 hover:bg-slate-50'
+                  className={`relative rounded-2xl px-4 py-3.5 text-base font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-emerald-50/80 text-[#0F4C3A]"
+                      : "text-slate-500 hover:bg-slate-50 hover:text-[#0F4C3A]"
                   }`}
                 >
-                  {link.label}
+                  <span className="flex items-center gap-3">
+                    {isActive && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#0F4C3A]" />
+                    )}
+                    {link.label}
+                  </span>
                 </Link>
-              ))}
-              <Link 
-                href="/booking" 
-                onClick={() => setIsMenuOpen(false)}
-                className="bg-emerald-700 text-white px-6 py-4 rounded-xl font-bold text-center mt-4 shadow-md"
+              );
+            })}
+
+            <div className="mt-4 px-4">
+              <Link
+                href="/booking"
+                className="block w-full rounded-full bg-[#0F4C3A] px-7 py-3.5 text-center text-base font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-900/20"
               >
-                Қабылдауға жазылу
+                Жазылу
               </Link>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+    </header>
   );
 }
