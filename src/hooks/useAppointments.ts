@@ -154,13 +154,6 @@ export function useAppointments() {
     try {
       setBookingLoading(true);
 
-      // Bypass DB insert if it's a fallback ID
-      if (!doctorId.includes('-') && doctorId.length < 5) {
-        // This is a mock ID like '1', '2'
-        await new Promise(resolve => setTimeout(resolve, 800));
-        return true;
-      }
-
       const { error: appointmentError } = await supabase
         .from('appointments')
         .insert([{
