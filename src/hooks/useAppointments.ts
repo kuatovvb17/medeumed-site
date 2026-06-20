@@ -20,7 +20,13 @@ export function useAppointments() {
         .select('*');
         
       if (servicesError) throw servicesError;
-      setServices(servicesData || []);
+      setServices((servicesData || []).map((s: any) => ({
+        id: String(s.id),
+        title: s.title || s.name || '',
+        category: s.category || '',
+        price: s.price || 0,
+        duration_minutes: s.duration_minutes || 45
+      })));
 
       // Fetch doctors safely
       const { data: doctorsData, error: doctorsError } = await supabase
@@ -28,7 +34,14 @@ export function useAppointments() {
         .select('*');
         
       if (doctorsError) throw doctorsError;
-      setDoctors(doctorsData || []);
+      setDoctors((doctorsData || []).map((d: any) => ({
+        id: String(d.id),
+        full_name: d.full_name || d.name || '',
+        specialty: d.specialty || '',
+        avatar_url: d.avatar_url || d.image_url || null,
+        bio: d.bio || '',
+        experience_years: d.experience_years || 10
+      })));
 
     } catch (error) {
       console.error("Supabase data fetch failed:", error);

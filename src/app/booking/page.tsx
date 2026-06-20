@@ -205,8 +205,12 @@ export default function BookingPage() {
                           : 'border-slate-100 bg-white hover:border-emerald-200 hover:shadow-sm'
                       }`}
                     >
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors ${formData.doctorId === doc.id ? 'bg-[#0F4C3A] text-white' : 'bg-slate-50 text-slate-400'}`}>
-                        <User size={20} />
+                      <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 overflow-hidden border-2 transition-colors ${formData.doctorId === doc.id ? 'border-[#0F4C3A] shadow-md' : 'border-white bg-slate-50 text-slate-400'}`}>
+                        {doc.avatar_url ? (
+                          <img src={doc.avatar_url} alt={doc.full_name} className="w-full h-full object-cover" />
+                        ) : (
+                          <User size={20} />
+                        )}
                       </div>
                       <div>
                         <div className={`font-bold transition-colors ${formData.doctorId === doc.id ? 'text-[#0F4C3A]' : 'text-slate-800'}`}>{doc.full_name}</div>
