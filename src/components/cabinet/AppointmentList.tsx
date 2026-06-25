@@ -76,8 +76,8 @@ function LoadingSkeleton() {
 
 export function AppointmentList({ appointments, loading }: AppointmentListProps) {
   const [showAll, setShowAll] = useState(false);
-  const displayedAppointments = showAll ? appointments : appointments.slice(0, 3);
-  const hasMore = appointments.length > 3;
+  const displayedAppointments = showAll ? appointments : appointments.slice(0, 1);
+  const hasMore = appointments.length > 1;
 
   return (
     <div className="animate-fade-in-up">

@@ -136,7 +136,12 @@ export function useAppointments() {
       const savedPhone = typeof window !== 'undefined' ? localStorage.getItem('medeu_patient_phone') : null;
       if (!savedPhone) return []; // No phone logged in
 
-      const localAppts: Appointment[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('medeu_local_appts') || '[]') : [];
+      const allLocal: Appointment[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('medeu_local_appts') || '[]') : [];
+      const cleanSaved = savedPhone.replace(/\D/g, '').slice(-10);
+      const localAppts = allLocal.filter(a => {
+        const cleanA = (a.phone_number || '').replace(/\D/g, '').slice(-10);
+        return cleanSaved.length === 10 && cleanA === cleanSaved;
+      });
 
       const digits = savedPhone.replace(/\D/g, ''); // normalize
       let phoneVariations = [savedPhone];
@@ -189,8 +194,10 @@ export function useAppointments() {
       return [...localAppts, ...supaAppts];
     } catch (error) {
       console.error('Unhandled error in fetchPatientAppointments:', error);
-      const localAppts: Appointment[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('medeu_local_appts') || '[]') : [];
-      return localAppts;
+      const allLocal: Appointment[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('medeu_local_appts') || '[]') : [];
+      const sp = typeof window !== 'undefined' ? localStorage.getItem('medeu_patient_phone') || '' : '';
+      const cs = sp.replace(/\D/g, '').slice(-10);
+      return allLocal.filter(a => cs.length === 10 && (a.phone_number || '').replace(/\D/g, '').slice(-10) === cs);
     }
   }, []);
 
