@@ -234,7 +234,7 @@ export function useAppointments() {
 
         if (appointmentError) throw appointmentError;
 
-        if (slotId.includes('-') && slotId.length > 10) {
+        if (slotId) {
           await supabase.from('available_slots').update({ is_booked: true }).eq('id', slotId);
         }
       } catch (dbErr) {
