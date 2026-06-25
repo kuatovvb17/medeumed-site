@@ -10,9 +10,11 @@ env.split('\n').forEach(line => {
 
 const supabase = createClient(url, key);
 
-async function checkAppts() {
-  const { data, error } = await supabase.from('appointments').select('*').order('id', { ascending: true });
-  console.log("Current appointments in database:", { data, error });
+async function inspect() {
+  const docs = await supabase.from('doctors').select('*').limit(2);
+  const srvs = await supabase.from('services').select('*').limit(2);
+  console.log("Doctors sample:", docs.data);
+  console.log("Services sample:", srvs.data);
 }
 
-checkAppts();
+inspect();
