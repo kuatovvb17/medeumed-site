@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Bot, X, Send, Sparkles, User, Calendar, MessageSquarePulse, ChevronDown } from 'lucide-react';
+import { Bot, X, Send, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 interface Message {
