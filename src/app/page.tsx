@@ -170,43 +170,55 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 icon: <Activity size={32} />,
                 title: 'Терапия және ЖТД',
                 desc: 'Дене қысымын өлшеу, бастапқы тексеру және амбулаторлық емдеу жоспарын құру.',
-                color: 'bg-sky-600/10 text-sky-600',
+                color: 'bg-sky-50 text-sky-600 border border-sky-100',
               },
               {
                 icon: <Shield size={32} />,
                 title: 'Неврология',
                 desc: 'Жүйке жүйесі ауруларын, мигреньді және омыртқа патологияларын емдеу.',
-                color: 'bg-sky-600/20 text-sky-600',
+                color: 'bg-teal-50 text-teal-600 border border-teal-100',
               },
               {
                 icon: <Heart size={32} />,
                 title: 'Кардиология',
                 desc: 'Жүрек жұмысын ЭКГ және Холтер арқылы зерттеу, гипертонияны емдеу.',
-                color: 'bg-[#FF0055]/20 text-[#FF4488]',
+                color: 'bg-rose-50 text-rose-600 border border-rose-100',
               },
               {
                 icon: <Baby size={32} />,
                 title: 'Педиатрия',
                 desc: '0-18 жас аралығындағы балалар денсаулығын бақылау және даму скринингі.',
-                color: 'bg-[#00FF88]/10 text-[#00FF88]',
+                color: 'bg-emerald-50 text-emerald-600 border border-emerald-100',
               },
               {
                 icon: <Search size={32} />,
                 title: 'УДЗ Диагностика',
                 desc: 'Сараптамалық деңгейдегі УДЗ аппараттарымен барлық мүшелерді дәл көру.',
-                color: 'bg-[#B000FF]/20 text-[#D400FF]',
+                color: 'bg-purple-50 text-purple-600 border border-purple-100',
               },
               {
                 icon: <Stethoscope size={32} />,
                 title: 'Зертхана',
                 desc: 'Жалпы және биохимиялық қан талдаулары, гормоналды панель тексерістері.',
-                color: 'bg-[#FFAA00]/10 text-[#FFAA00]',
+                color: 'bg-amber-50 text-amber-600 border border-amber-100',
+              },
+              {
+                icon: <Award size={32} />,
+                title: 'Отоларингология (ЛОР)',
+                desc: 'Құлақ, тамақ және мұрын жолдарын эндоскопиялық заманауи тексеру.',
+                color: 'bg-cyan-50 text-cyan-600 border border-cyan-100',
+              },
+              {
+                icon: <CalendarCheck size={32} />,
+                title: 'Урология',
+                desc: 'Бүйрек және зәр шығару жүйесін кешенді диагностикалау мен емдеу.',
+                color: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
               },
             ].map((service, i) => (
               <motion.div 
@@ -387,23 +399,23 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-gradient-to-br from-[#0A0A0A] to-[#050505] border border-slate-200 rounded-[3rem] p-12 md:p-20 text-slate-900 text-center shadow-[0_0_50px_rgba(0,68,255,0.1)] relative overflow-hidden"
+            className="bg-gradient-to-br from-sky-600 to-teal-700 border border-sky-400 rounded-[3rem] p-12 md:p-20 text-white text-center shadow-2xl relative overflow-hidden"
           >
             {/* Decorative background shapes for CTA */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
 
             <div className="relative z-10">
-              <CalendarCheck className="w-16 h-16 mx-auto mb-8 text-sky-600 drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]" />
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              <CalendarCheck className="w-16 h-16 mx-auto mb-8 text-white drop-shadow-md" />
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
                 Өз денсаулығыңызды бізге сеніп тапсырыңыз
               </h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-12 font-light">
+              <p className="text-xl text-sky-100 max-w-2xl mx-auto mb-12 font-light">
                 Онлайн жазылу арқылы өзіңізге ыңғайлы уақытты таңдап, кезексіз қабылдауға келіңіз.
               </p>
               <Link
                 href="/booking"
-                className="inline-flex items-center gap-3 bg-sky-600 text-slate-900 rounded-full px-12 py-5 font-bold text-lg hover:bg-sky-600 hover:text-black hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(0,68,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)]"
+                className="inline-flex items-center gap-3 bg-white text-sky-700 rounded-full px-12 py-5 font-bold text-lg hover:bg-sky-50 hover:scale-105 transition-all duration-300 shadow-xl"
               >
                 Қазір жазылу <ArrowRight size={22} />
               </Link>

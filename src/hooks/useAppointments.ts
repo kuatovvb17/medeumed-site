@@ -19,9 +19,8 @@ export function useAppointments() {
         .from('services')
         .select('*');
         
-      if (servicesError) {
-        console.error("🔴 Supabase Services Error:", servicesError.message, servicesError.details, servicesError.hint);
-        throw servicesError;
+      if (servicesError || !servicesData || servicesData.length === 0) {
+        throw new Error("Supabase services error or empty");
       }
       setServices((servicesData || []).map((s: any) => {
         const title = s.title || s.name || '';
@@ -34,7 +33,7 @@ export function useAppointments() {
         return {
           id: String(s.id),
           title: title,
-          category: s.category || '',
+          category: s.category || 'Терапия',
           price: s.price || fallbackPrice,
           duration_minutes: s.duration_minutes || 45
         };
@@ -45,36 +44,49 @@ export function useAppointments() {
         .from('doctors')
         .select('*');
         
-      if (doctorsError) {
-        console.error("🔴 Supabase Doctors Error:", doctorsError.message, doctorsError.details, doctorsError.hint);
-        throw doctorsError;
+      if (doctorsError || !doctorsData || doctorsData.length === 0) {
+        throw new Error("Supabase doctors error or empty");
       }
       setDoctors((doctorsData || []).map((d: any) => ({
         id: String(d.id),
         full_name: d.full_name || d.name || '',
         specialty: d.specialty || '',
-        avatar_url: d.avatar_url || d.image_url || null,
+        avatar_url: d.avatar_url || d.image_url || 'https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=600',
         bio: d.bio || '',
         experience_years: d.experience_years || 10
       })));
 
     } catch (error: any) {
-      console.error("🔴 Supabase Data Fetch Failed:", error);
-      console.error("ℹ️ Check your Supabase RLS (Row Level Security) policies or Environment Variables.");
+      console.error("🔴 Using Extended Fallback Medical Data:", error);
       
-      // EMERGENCY FALLBACK: Populate hardcoded data if Supabase client fails to connect
+      // FALLBACK 12 SERVICES
       setServices([
         { id: '1', title: 'Жалпы терапевт консультациясы', category: 'Терапия', price: 10000, duration_minutes: 30 },
         { id: '2', title: 'Неврологтың алғашқы консультациясы', category: 'Неврология', price: 15000, duration_minutes: 45 },
         { id: '3', title: 'Кардиолог дәрігерінің қабылдауы', category: 'Кардиология', price: 16000, duration_minutes: 40 },
-        { id: '4', title: 'Педиатр дәрігерінің қабылдауы', category: 'Педиатрия', price: 12000, duration_minutes: 40 },
-        { id: '5', title: 'Кешенді УДЗ (іш қуысы және бүйрек)', category: 'УДЗ Диагностика', price: 18000, duration_minutes: 30 },
-        { id: '6', title: 'Жалпы қан анализі (ЖҚА - кеңейтілген)', category: 'Зертхана', price: 4500, duration_minutes: 10 }
+        { id: '4', title: 'ЛОР дәрігерінің консультациясы', category: 'Отоларингология', price: 13000, duration_minutes: 30 },
+        { id: '5', title: 'Уролог дәрігерінің алғашқы қабылдауы', category: 'Урология', price: 15000, duration_minutes: 40 },
+        { id: '6', title: 'Акушер-гинеколог консультациясы', category: 'Гинекология', price: 14000, duration_minutes: 45 },
+        { id: '7', title: 'Эндокринолог консультациясы', category: 'Эндокринология', price: 15000, duration_minutes: 40 },
+        { id: '8', title: 'Педиатр дәрігерінің қабылдауы', category: 'Педиатрия', price: 12000, duration_minutes: 40 },
+        { id: '9', title: 'Кешенді УДЗ (іш қуысы және бүйрек)', category: 'УДЗ Диагностика', price: 18000, duration_minutes: 30 },
+        { id: '10', title: 'Жалпы қан анализі (ЖҚА - кеңейтілген)', category: 'Зертхана', price: 4500, duration_minutes: 10 },
+        { id: '11', title: 'Жүрек ЭКГ тексеруі (декодермен)', category: 'Кардиология', price: 6000, duration_minutes: 15 },
+        { id: '12', title: 'Кешенді Check-up (Денсаулық паспорты)', category: 'Терапия', price: 45000, duration_minutes: 90 }
       ]);
+
+      // FALLBACK 10 DOCTORS
       setDoctors([
-        { id: '1', full_name: 'Ахметова Алина Серікқызы', specialty: 'Жалпы тәжірибелі дәрігер (ЖТД)', avatar_url: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=600&auto=format&fit=crop', experience_years: 12, bio: 'Отбасылық медицина маманы' },
-        { id: '2', full_name: 'Оспанов Данияр Маратұлы', specialty: 'Невролог', avatar_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=600&auto=format&fit=crop', experience_years: 16, bio: 'Жүйке жүйесі сарапшысы' },
-        { id: '3', full_name: 'Сүлейменова Әлия Қайратқызы', specialty: 'Кардиолог', avatar_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop', experience_years: 14, bio: 'Жүрек аурулары маманы' }
+        { id: '1', full_name: 'Ахметова Алина Серікқызы', specialty: 'Жалпы тәжірибелі дәрігер (ЖТД)', avatar_url: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=600', experience_years: 12, bio: 'Отбасылық медицина сарапшысы' },
+        { id: '2', full_name: 'Оспанов Данияр Маратұлы', specialty: 'Невролог', avatar_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=600', experience_years: 16, bio: 'Жүйке жүйесі патологиялары маманы' },
+        { id: '3', full_name: 'Сүлейменова Әлия Қайратқызы', specialty: 'Кардиолог', avatar_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600', experience_years: 14, bio: 'Жүрек-қан тамырлары жүйесі дәрігері' },
+        { id: '4', full_name: 'Кәрімов Санжар Болатұлы', specialty: 'Отоларинголог (ЛОР)', avatar_url: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=600', experience_years: 11, bio: 'ЛОР ауруларын заманауи емдеу' },
+        { id: '5', full_name: 'Нұрғалиева Гүлнар Бекзатқызы', specialty: 'Педиатр', avatar_url: 'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=600', experience_years: 18, bio: 'Балалар денсаулығын жоғары деңгейде бақылау' },
+        { id: '6', full_name: 'Тілеуов Ержан Асқарұлы', specialty: 'Уролог', avatar_url: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=600', experience_years: 13, bio: 'Ерлер денсаулығы сарапшысы' },
+        { id: '7', full_name: 'Мамедова Лейла Тұрсынқызы', specialty: 'Эндокринолог', avatar_url: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=600', experience_years: 15, bio: 'Гормоналды теңгерім және қант диабеті маманы' },
+        { id: '8', full_name: 'Жұмабаев Айдос Кенесұлы', specialty: 'УДЗ Диагностика сарапшысы', avatar_url: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=600', experience_years: 20, bio: '3D/4D кешенді ультрадыбыстық зерттеу' },
+        { id: '9', full_name: 'Исаев Мақсат Бақытұлы', specialty: 'Акушер-гинеколог', avatar_url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=600', experience_years: 14, bio: 'Әйелдер денсаулығы және жоспарлау' },
+        { id: '10', full_name: 'Қуатова Зарина Ерланқызы', specialty: 'Зертхана меңгерушісі', avatar_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600', experience_years: 17, bio: 'Кешенді клиникалық талдаулар сарапшысы' }
       ]);
     } finally {
       setLoading(false);
