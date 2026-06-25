@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { AIAssistantWidget } from "@/components/ai/AIAssistantWidget";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
@@ -38,6 +39,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <AIAssistantWidget />
       </body>
     </html>
   );
