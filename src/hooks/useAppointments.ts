@@ -64,15 +64,17 @@ export function useAppointments() {
       
       // EMERGENCY FALLBACK: Populate hardcoded data if Supabase client fails to connect
       setServices([
-        { id: '1', title: 'Алғашқы акушер-гинеколог консультациясы', category: 'Консультация', price: 15000, duration_minutes: 45 },
-        { id: '2', title: 'Жүктілікті жүргізу (Пакеттер)', category: 'Бағдарлама', price: 150000, duration_minutes: 60 },
-        { id: '3', title: 'Ұрпақты болу денсаулығын тексеру (Check-up)', category: 'Диагностика', price: 25000, duration_minutes: 45 },
-        { id: '4', title: 'Кіші жамбас мүшелерінің УЗИ-і', category: 'УДЗ', price: 10000, duration_minutes: 30 }
+        { id: '1', title: 'Жалпы терапевт консультациясы', category: 'Терапия', price: 10000, duration_minutes: 30 },
+        { id: '2', title: 'Неврологтың алғашқы консультациясы', category: 'Неврология', price: 15000, duration_minutes: 45 },
+        { id: '3', title: 'Кардиолог дәрігерінің қабылдауы', category: 'Кардиология', price: 16000, duration_minutes: 40 },
+        { id: '4', title: 'Педиатр дәрігерінің қабылдауы', category: 'Педиатрия', price: 12000, duration_minutes: 40 },
+        { id: '5', title: 'Кешенді УДЗ (іш қуысы және бүйрек)', category: 'УДЗ Диагностика', price: 18000, duration_minutes: 30 },
+        { id: '6', title: 'Жалпы қан анализі (ЖҚА - кеңейтілген)', category: 'Зертхана', price: 4500, duration_minutes: 10 }
       ]);
       setDoctors([
-        { id: '1', full_name: 'Алия Султанова', specialty: 'Гинеколог-эндокринолог', avatar_url: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=600&auto=format&fit=crop', experience_years: 15, bio: 'Жоғары санатты дәрігер' },
-        { id: '2', full_name: 'Зарина Ахметова', specialty: 'Репродуктолог', avatar_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop', experience_years: 12, bio: 'Тәжірибелі маман' },
-        { id: '3', full_name: 'Мадина Ибраева', specialty: 'УЗИ маманы', avatar_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=600&auto=format&fit=crop', experience_years: 8, bio: 'Сараптамалық УДЗ маманы' }
+        { id: '1', full_name: 'Ахметова Алина Серікқызы', specialty: 'Жалпы тәжірибелі дәрігер (ЖТД)', avatar_url: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=600&auto=format&fit=crop', experience_years: 12, bio: 'Отбасылық медицина маманы' },
+        { id: '2', full_name: 'Оспанов Данияр Маратұлы', specialty: 'Невролог', avatar_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=600&auto=format&fit=crop', experience_years: 16, bio: 'Жүйке жүйесі сарапшысы' },
+        { id: '3', full_name: 'Сүлейменова Әлия Қайратқызы', specialty: 'Кардиолог', avatar_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop', experience_years: 14, bio: 'Жүрек аурулары маманы' }
       ]);
     } finally {
       setLoading(false);

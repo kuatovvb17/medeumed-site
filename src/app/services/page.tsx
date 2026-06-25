@@ -9,12 +9,12 @@ import { Skeleton } from "@/components/ui/Skeleton";
 const getIconForCategory = (category: string | null | undefined) => {
   if (!category) return LayoutGrid;
   const cat = category.toLowerCase();
-  if (cat.includes('консультация')) return Stethoscope;
-  if (cat.includes('диагностика')) return Microscope;
-  if (cat.includes('бағдарлама') || cat.includes('акушер')) return Baby;
-  if (cat.includes('емдеу')) return Heart;
+  if (cat.includes('невро')) return Activity;
+  if (cat.includes('кардио')) return Heart;
+  if (cat.includes('педиатр')) return Baby;
+  if (cat.includes('удз') || cat.includes('узи') || cat.includes('диагностика')) return Microscope;
   if (cat.includes('зертхана') || cat.includes('анализ')) return FlaskConical;
-  if (cat.includes('эндокринолог')) return Activity;
+  if (cat.includes('терап') || cat.includes('жтд') || cat.includes('консультация')) return Stethoscope;
   return LayoutGrid;
 };
 

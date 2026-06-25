@@ -62,22 +62,32 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/services" className="hover:text-emerald-400 transition-colors">
-                  Акушерлік
+                  Терапия және ЖТД
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-emerald-400 transition-colors">
-                  Гинекология
+                  Неврология
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-emerald-400 transition-colors">
-                  УДЗ (УЗИ)
+                  Кардиология
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-emerald-400 transition-colors">
-                  Анализдер
+                  Педиатрия
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-emerald-400 transition-colors">
+                  УДЗ Диагностика
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-emerald-400 transition-colors">
+                  Зертхана
                 </Link>
               </li>
             </ul>

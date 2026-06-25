@@ -27,9 +27,12 @@ const FADE_UP_ANIMATION_VARIANTS: any = {
 };
 
 const directionsData: Record<string, string> = {
-  'Гинекология': 'Толық гинекологиялық тексеру, инфекцияларды анықтау және емдеу. Жатыр мойны эрозиясын заманауи әдістермен емдеу.',
-  'Акушерлік': 'Жүктілікті жоспарлау және 9 ай бойы толық медициналық бақылау. Босануға дайындық курстары және генетикалық скрининг.',
-  'УДЗ (УЗИ)': 'Жамбас ағзаларының, сүт бездерінің, қалқанша бездің және жүктіліктің 3D/4D форматындағы ультрадыбыстық зерттеуі.'
+  'Терапия және ЖТД': 'Дене қысымын, температураны өлшеу, кешенді бастапқы тексеру және жеке емдеу жоспарын құру.',
+  'Неврология': 'Жүйке жүйесін, рефлекстерді тексеру, мигрень, ұйқысыздық және омыртқа ауруларын емдеу.',
+  'Кардиология': 'Жүрек-қан тамырлары жүйесін тексеру, ЭКГ және артериялық қан қысымын холтерлік мониторингтеу.',
+  'Педиатрия': '0-18 жас аралығындағы балалар денсаулығын бақылау, жоспарлы скрининг және дамуын бағалау.',
+  'УДЗ Диагностика': 'Іш қуысы, бүйрек, жүрек (ЭхоКГ) және қалқанша безді ультрадыбыстық зерттеу.',
+  'Зертхана': 'Кеңейтілген жалпы қан анализі, биохимиялық талдаулар және гормоналды панель зерттеуі.'
 };
 
 export default function Home() {
@@ -57,11 +60,11 @@ export default function Home() {
           >
             <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A0A0A]/80 backdrop-blur-md border border-[#00F0FF]/30 text-[#00F0FF] font-semibold text-sm mb-6 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
               <SparklesIcon className="w-4 h-4 text-[#00F0FF]" />
-              <span>Алматыдағы премиум гинекология орталығы</span>
+              <span>Алматыдағы жетекші көпсалалы отбасылық емхана</span>
             </motion.div>
             
             <motion.h1 variants={FADE_UP_ANIMATION_VARIANTS} className="text-5xl md:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
-              Әйелдер денсаулығына <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0044FF]">кәсіби қамқорлық</span>
+              Сіздің және отбасыңыздың денсаулығына <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0044FF]">кәсіби қамқорлық</span>
             </motion.h1>
             
             <motion.p variants={FADE_UP_ANIMATION_VARIANTS} className="text-lg md:text-xl text-slate-400 mb-10 max-w-xl leading-relaxed font-light">
@@ -159,7 +162,7 @@ export default function Home() {
                 Негізгі бағыттар
               </h2>
               <p className="text-lg text-slate-400 font-light">
-                Біздің клиника әйелдер денсаулығын сақтау және қалпына келтіру үшін ең заманауи және тиімді шешімдерді ұсынады.
+                Біздің клиника ересектер мен балалар денсаулығын сақтау және қалпына келтіру үшін кешенді медициналық шешімдерді ұсынады.
               </p>
             </div>
             <Link href="/services" className="hidden md:flex items-center gap-2 text-[#00F0FF] font-bold text-lg hover:gap-4 transition-all bg-[#00F0FF]/10 border border-[#00F0FF]/20 px-6 py-3 rounded-full hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]">
@@ -171,40 +174,60 @@ export default function Home() {
             {[
               {
                 icon: <Activity size={32} />,
-                title: 'Гинекология',
-                desc: 'Ауруларды ерте диагностикалау, емдеу және алдын алу шаралары.',
+                title: 'Терапия және ЖТД',
+                desc: 'Дене қысымын өлшеу, бастапқы тексеру және амбулаторлық емдеу жоспарын құру.',
                 color: 'bg-[#00F0FF]/10 text-[#00F0FF]',
               },
               {
-                icon: <Baby size={32} />,
-                title: 'Акушерлік',
-                desc: 'Жүктілікті жоспарлау және босануға дейінгі толық медициналық сүйемелдеу.',
+                icon: <Shield size={32} />,
+                title: 'Неврология',
+                desc: 'Жүйке жүйесі ауруларын, мигреньді және омыртқа патологияларын емдеу.',
                 color: 'bg-[#0044FF]/20 text-[#00F0FF]',
               },
               {
+                icon: <Heart size={32} />,
+                title: 'Кардиология',
+                desc: 'Жүрек жұмысын ЭКГ және Холтер арқылы зерттеу, гипертонияны емдеу.',
+                color: 'bg-[#FF0055]/20 text-[#FF4488]',
+              },
+              {
+                icon: <Baby size={32} />,
+                title: 'Педиатрия',
+                desc: '0-18 жас аралығындағы балалар денсаулығын бақылау және даму скринингі.',
+                color: 'bg-[#00FF88]/10 text-[#00FF88]',
+              },
+              {
                 icon: <Search size={32} />,
-                title: 'УДЗ (УЗИ)',
-                desc: 'Сараптамалық деңгейдегі УДЗ аппараттарымен дәл диагностика жасау.',
+                title: 'УДЗ Диагностика',
+                desc: 'Сараптамалық деңгейдегі УДЗ аппараттарымен барлық мүшелерді дәл көру.',
                 color: 'bg-[#B000FF]/20 text-[#D400FF]',
+              },
+              {
+                icon: <Stethoscope size={32} />,
+                title: 'Зертхана',
+                desc: 'Жалпы және биохимиялық қан талдаулары, гормоналды панель тексерістері.',
+                color: 'bg-[#FFAA00]/10 text-[#FFAA00]',
               },
             ].map((service, i) => (
               <motion.div 
                 key={i} 
                 whileHover={{ y: -10 }}
-                className="bg-[#0A0A0A] p-10 rounded-3xl border border-white/10 shadow-lg group hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:border-[#00F0FF]/30 transition-all duration-300"
+                className="bg-[#0A0A0A] p-10 rounded-3xl border border-white/10 shadow-lg group hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:border-[#00F0FF]/30 transition-all duration-300 flex flex-col justify-between"
               >
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-8 ${service.color} transition-transform group-hover:scale-110 shadow-inner`}>
-                  {service.icon}
+                <div>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-8 ${service.color} transition-transform group-hover:scale-110 shadow-inner`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed mb-8 font-light text-lg">
+                    {service.desc}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-slate-400 leading-relaxed mb-8 font-light text-lg">
-                  {service.desc}
-                </p>
                 <button
                   onClick={() => setSelectedDirection(service.title)}
-                  className="text-white font-semibold flex items-center gap-2 group-hover:text-[#00F0FF] transition-colors"
+                  className="text-white font-semibold flex items-center gap-2 group-hover:text-[#00F0FF] transition-colors self-start"
                 >
                   Толығырақ <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -277,7 +300,7 @@ export default function Home() {
               Пациенттер пікірі
             </h2>
             <p className="text-xl text-slate-400 font-light">
-              Бізге сенім білдірген мыңдаған әйелдердің шынайы пікірлері
+              Бізге сенім білдірген мыңдаған пациенттердің шынайы пікірлері
             </p>
           </div>
 
@@ -285,12 +308,12 @@ export default function Home() {
             {[
               {
                 name: "Айдана С.",
-                text: "Алия Султанова өте білікті маман. Көптен бері мазалаған мәселемді тез анықтап, дұрыс ем тағайындады. Клиниканың тазалығы мен сервисі де өте жоғары деңгейде.",
+                text: "Данияр Оспанов өте білікті невролог маман. Көптен бері мазалаған бас ауруымның себебін тез анықтап, дұрыс ем тағайындады. Рақмет!",
                 rating: 5
               },
               {
-                name: "Мадина Н.",
-                text: "Жүктілігімді осы клиникада жүргіздім. Әрбір қабылдау өте жайлы өтті, дәрігерлер бәрін түсінікті етіп түсіндіреді. УЗИ аппараттары да өте жаңа.",
+                name: "Марат Н.",
+                text: "Отбасымызбен үнемі осы емханаға қараламыз. Терапевт пен педиатр дәрігерлері өте білікті әрі мұқият. УДЗ аппараттары да жап-жаңа.",
                 rating: 5
               },
               {
