@@ -158,11 +158,16 @@ export function useAppointments() {
 
       let supaAppts: Appointment[] = [];
       try {
-        const { data: allData, error } = await supabase
+        const { data: rawData, error } = await supabase
           .from('appointments')
           .select(`*, doctors (*), services (*)`)
-          .in('phone', phoneVariations)
-          .order('id', { ascending: false });
+          .order('id', { ascending: false })
+          .limit(100);
+
+        const allData = (rawData || []).filter((item: any) => {
+          const iClean = (item.phone || '').replace(/\D/g, '').slice(-10);
+          return cleanSaved.length === 10 && iClean === cleanSaved;
+        });
           
         if (!error && allData) {
           const uniqueDataMap = new Map();
