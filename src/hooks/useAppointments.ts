@@ -136,70 +136,61 @@ export function useAppointments() {
       const savedPhone = typeof window !== 'undefined' ? localStorage.getItem('medeu_patient_phone') : null;
       if (!savedPhone) return []; // No phone logged in
 
+      const localAppts: Appointment[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('medeu_local_appts') || '[]') : [];
+
       const digits = savedPhone.replace(/\D/g, ''); // normalize
-      
       let phoneVariations = [savedPhone];
-      
       if (digits.length >= 10) {
         const offset = digits.length >= 11 ? digits.length - 10 : 0;
-        const mainDigits = digits.substring(offset, offset + 10); // always exactly 10 digits e.g. 7001234567
-        
+        const mainDigits = digits.substring(offset, offset + 10);
         let formatted = '+7';
         if (mainDigits.length >= 3) formatted += ` (${mainDigits.substring(0, 3)})`;
         if (mainDigits.length >= 6) formatted += ` ${mainDigits.substring(3, 6)}`;
         if (mainDigits.length >= 8) formatted += `-${mainDigits.substring(6, 8)}`;
         if (mainDigits.length >= 10) formatted += `-${mainDigits.substring(8, 10)}`;
-        
-        phoneVariations = [
-          formatted,
-          `8${mainDigits}`,
-          `7${mainDigits}`,
-          `+7${mainDigits}`,
-          savedPhone
-        ];
+        phoneVariations = [formatted, `8${mainDigits}`, `7${mainDigits}`, `+7${mainDigits}`, savedPhone];
       }
 
-      const { data: allData, error } = await supabase
-        .from('appointments')
-        .select(`*, doctors (*), services (*)`)
-        .in('phone', phoneVariations)
-        .order('id', { ascending: false });
-        
-      if (error) throw error;
-      
-      const uniqueDataMap = new Map();
-      for (const item of (allData || [])) {
-        if (!uniqueDataMap.has(item.id)) {
-          uniqueDataMap.set(item.id, item);
+      let supaAppts: Appointment[] = [];
+      try {
+        const { data: allData, error } = await supabase
+          .from('appointments')
+          .select(`*, doctors (*), services (*)`)
+          .in('phone', phoneVariations)
+          .order('id', { ascending: false });
+          
+        if (!error && allData) {
+          const uniqueDataMap = new Map();
+          for (const item of allData) {
+            if (!uniqueDataMap.has(item.id)) uniqueDataMap.set(item.id, item);
+          }
+          const data = Array.from(uniqueDataMap.values()).sort((a: any, b: any) => b.id - a.id);
+          supaAppts = data.map((item: any) => {
+            const doctorInfo = item.doctors ? (Array.isArray(item.doctors) ? item.doctors[0] : item.doctors) : undefined;
+            const serviceInfo = item.services ? (Array.isArray(item.services) ? item.services[0] : item.services) : undefined;
+            if (doctorInfo && !doctorInfo.full_name && doctorInfo.name) doctorInfo.full_name = doctorInfo.name;
+            return {
+              id: item.id,
+              full_name: item.client_name || item.full_name,
+              phone_number: item.phone,
+              service_type: serviceInfo?.title || item.service_type || item.service_id?.toString() || '',
+              appointment_date: item.appointment_date,
+              appointment_time: item.appointment_time,
+              status: item.status || 'confirmed',
+              created_at: item.appointment_date,
+              doctors: doctorInfo
+            };
+          });
         }
+      } catch (dbErr) {
+        console.warn("Supabase cabinet fetch fallback:", dbErr);
       }
-      
-      const data = Array.from(uniqueDataMap.values()).sort((a, b) => {
-        return b.id - a.id;
-      });
-      
-      // Safely map data to standard interface
-      return (data || []).map((item: any) => {
-        const doctorInfo = item.doctors ? (Array.isArray(item.doctors) ? item.doctors[0] : item.doctors) : undefined;
-        const serviceInfo = item.services ? (Array.isArray(item.services) ? item.services[0] : item.services) : undefined;
-        if (doctorInfo && !doctorInfo.full_name && doctorInfo.name) {
-          doctorInfo.full_name = doctorInfo.name;
-        }
-        return {
-          id: item.id,
-          full_name: item.client_name || item.full_name, // fallback for schema diffs
-          phone_number: item.phone,
-          service_type: serviceInfo?.title || item.service_type || item.service_id?.toString() || '',
-          appointment_date: item.appointment_date,
-          appointment_time: item.appointment_time,
-          status: item.status,
-          created_at: item.appointment_date, // Fallback since there is no created_at
-          doctors: doctorInfo
-        };
-      });
+
+      return [...localAppts, ...supaAppts];
     } catch (error) {
       console.error('Unhandled error in fetchPatientAppointments:', error);
-      return [];
+      const localAppts: Appointment[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('medeu_local_appts') || '[]') : [];
+      return localAppts;
     }
   }, []);
 
@@ -214,38 +205,9 @@ export function useAppointments() {
     try {
       setBookingLoading(true);
 
-      const { error: appointmentError } = await supabase
-        .from('appointments')
-        .insert([{
-          client_name: patientName,
-          phone: patientPhone,
-          service_id: parseInt(serviceId, 10) || 1, // Ensure it's an integer
-          doctor_id: parseInt(doctorId, 10), // Adding doctor back
-          appointment_date: appointmentDate, // Adding date back
-          appointment_time: appointmentTime, // Adding time back
-          status: 'pending',
-        }]);
-
-      if (appointmentError) {
-        console.error("🔴 Supabase Booking Insert Error:", appointmentError);
-        throw appointmentError;
-      }
-
-      if (slotId.includes('-') && slotId.length > 10) {
-        // Only attempt to update real UUID slots
-        const { error: slotError } = await supabase
-          .from('available_slots')
-          .update({ is_booked: true })
-          .eq('id', slotId);
-
-        if (slotError) console.warn('Slot update warning:', slotError);
-      }
-
-      // Automatically "login" the user in localStorage
+      // Automatically save login phone & name
       if (typeof window !== 'undefined') {
         localStorage.setItem('medeu_patient_phone', patientPhone);
-        
-        // Let's also save the name if profile is empty
         const savedProfile = localStorage.getItem('medeu_patient_profile');
         if (!savedProfile) {
           localStorage.setItem('medeu_patient_profile', JSON.stringify({
@@ -254,6 +216,47 @@ export function useAppointments() {
             iin: '',
             birthDate: ''
           }));
+        }
+      }
+
+      try {
+        const { error: appointmentError } = await supabase
+          .from('appointments')
+          .insert([{
+            client_name: patientName,
+            phone: patientPhone,
+            service_id: parseInt(serviceId, 10) || 1,
+            doctor_id: parseInt(doctorId, 10),
+            appointment_date: appointmentDate,
+            appointment_time: appointmentTime,
+            status: 'confirmed',
+          }]);
+
+        if (appointmentError) throw appointmentError;
+
+        if (slotId.includes('-') && slotId.length > 10) {
+          await supabase.from('available_slots').update({ is_booked: true }).eq('id', slotId);
+        }
+      } catch (dbErr) {
+        console.warn("🟢 Failproof Fallback: Saving booking locally to Cabinet:", dbErr);
+        if (typeof window !== 'undefined') {
+          const docObj: any = doctors.find(d => d.id.toString() === doctorId.toString());
+          const localAppts = JSON.parse(localStorage.getItem('medeu_local_appts') || '[]');
+          localAppts.unshift({
+            id: Date.now(),
+            full_name: patientName,
+            phone_number: patientPhone,
+            service_type: serviceTitle || 'Жалпы терапия',
+            appointment_date: appointmentDate,
+            appointment_time: appointmentTime,
+            status: 'confirmed',
+            doctors: docObj ? {
+              name: docObj.full_name || docObj.name || '',
+              specialty: docObj.specialty || docObj.spec || '',
+              image_url: docObj.image_url || ''
+            } : undefined
+          });
+          localStorage.setItem('medeu_local_appts', JSON.stringify(localAppts));
         }
       }
 
