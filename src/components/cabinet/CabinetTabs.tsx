@@ -28,7 +28,7 @@ export function CabinetTabs({ activeTab, onTabChange }: CabinetTabsProps) {
           onClick={() => onTabChange(tab.id)}
           className={`flex items-center gap-2 px-6 py-3.5 rounded-full font-medium transition-all whitespace-nowrap ${
             activeTab === tab.id
-              ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20'
+              ? 'bg-white text-slate-900 shadow-lg shadow-slate-900/20'
               : 'bg-transparent text-slate-500 hover:bg-slate-100'
           }`}
         >

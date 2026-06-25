@@ -59,10 +59,10 @@ export function ProfileSettings({ loading = false }: ProfileSettingsProps) {
   if (loading || !isLoaded) {
     return (
       <div className="animate-fade-in-up max-w-3xl">
-        <h2 className="text-2xl md:text-3xl font-bold font-serif text-white tracking-wide mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold font-serif text-slate-900 tracking-wide mb-8">
           Жеке <span className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.3)]">ақпарат</span>
         </h2>
-        <div className="bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.05)]">
+        <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 border border-slate-200 shadow-lg shadow-slate-100">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {Array.from({ length: 4 }).map((_, i) => (
               <ProfileFieldSkeleton key={i} />
@@ -75,10 +75,10 @@ export function ProfileSettings({ loading = false }: ProfileSettingsProps) {
 
   return (
     <div className="animate-fade-in-up max-w-3xl">
-      <h2 className="text-2xl md:text-3xl font-bold font-serif text-white tracking-wide mb-8">
+      <h2 className="text-2xl md:text-3xl font-bold font-serif text-slate-900 tracking-wide mb-8">
         Жеке <span className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.3)]">ақпарат</span>
       </h2>
-      <div className="bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.05)] relative overflow-hidden">
+      <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-slate-200 shadow-lg shadow-slate-100 relative overflow-hidden">
         {/* Neon glow effect */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none" />
         
@@ -94,7 +94,7 @@ export function ProfileSettings({ loading = false }: ProfileSettingsProps) {
                 value={profile.fullName}
                 onChange={handleChange}
                 placeholder="Мысалы: Ахметов Асқар"
-                className="w-full p-4 rounded-2xl border border-emerald-500/30 bg-slate-950/80 focus:bg-slate-900 focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-white placeholder-slate-600 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50"
+                className="w-full p-4 rounded-2xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-slate-900 placeholder-slate-400 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50"
               />
             </div>
             <div className="space-y-2">
@@ -107,7 +107,7 @@ export function ProfileSettings({ loading = false }: ProfileSettingsProps) {
                 value={profile.phone}
                 onChange={handleChange}
                 placeholder="87001234567"
-                className="w-full p-4 rounded-2xl border border-emerald-500/30 bg-slate-950/80 focus:bg-slate-900 focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-white placeholder-slate-600 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50"
+                className="w-full p-4 rounded-2xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-slate-900 placeholder-slate-400 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50"
               />
             </div>
             <div className="space-y-2">
@@ -121,7 +121,7 @@ export function ProfileSettings({ loading = false }: ProfileSettingsProps) {
                 onChange={handleChange}
                 maxLength={12}
                 placeholder="000000000000"
-                className="w-full p-4 rounded-2xl border border-emerald-500/30 bg-slate-950/80 focus:bg-slate-900 focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-white placeholder-slate-600 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50"
+                className="w-full p-4 rounded-2xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-slate-900 placeholder-slate-400 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50"
               />
             </div>
             <div className="space-y-2">
@@ -133,11 +133,11 @@ export function ProfileSettings({ loading = false }: ProfileSettingsProps) {
                 type="date"
                 value={profile.birthDate}
                 onChange={handleChange}
-                className="w-full p-4 rounded-2xl border border-emerald-500/30 bg-slate-950/80 focus:bg-slate-900 focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-white placeholder-slate-600 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50 [color-scheme:dark]"
+                className="w-full p-4 rounded-2xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 outline-none text-slate-900 placeholder-slate-400 transition-all duration-500 ease-in-out shadow-inner hover:border-emerald-500/50 [color-scheme:light]"
               />
             </div>
           </div>
-          <div className="pt-8 border-t border-emerald-500/20 flex justify-end">
+          <div className="pt-8 border-t border-slate-200 flex justify-end">
             <button
               type="submit"
               className="bg-emerald-500 text-slate-950 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-emerald-400 transition-all duration-500 ease-in-out shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:-translate-y-1"

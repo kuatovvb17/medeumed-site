@@ -4,13 +4,13 @@
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
   
-  /* NEON DARK MODE COLORS */
-  --color-background: #050505;
-  --color-foreground: #ffffff;
-  --color-primary: #00F0FF; /* Neon Cyan */
-  --color-secondary: #0044FF; /* Deep Blue */
-  --color-accent: #00F0FF; 
-  --color-surface: #0a0a0a;
+  /* LIGHT CLEAN MEDICAL MODE COLORS */
+  --color-background: #F8FAFC;
+  --color-foreground: #0F172A;
+  --color-primary: #0284C7; /* Sky 600 */
+  --color-secondary: #0D9488; /* Teal 600 */
+  --color-accent: #06B6D4; 
+  --color-surface: #FFFFFF;
 
   --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-fade-in: fade-in 1s ease-out forwards;
@@ -56,37 +56,37 @@
 @layer base {
   html { scroll-behavior: smooth; }
   body { 
-    @apply bg-[#050505] text-white antialiased overflow-x-hidden selection:bg-[#00F0FF] selection:text-black transition-colors duration-500; 
+    @apply bg-[#F8FAFC] text-slate-900 antialiased overflow-x-hidden selection:bg-cyan-500 selection:text-white transition-colors duration-500; 
   }
-  h1, h2, h3, h4, h5, h6 { @apply font-serif tracking-tight text-white; }
+  h1, h2, h3, h4, h5, h6 { @apply font-serif tracking-tight text-slate-900; }
 }
 
 @layer utilities {
   .shadow-soft {
-    box-shadow: 0 4px 40px -2px rgba(0, 240, 255, 0.05);
+    box-shadow: 0 4px 40px -2px rgba(15, 23, 42, 0.06);
   }
   
   .shadow-luxury {
-    box-shadow: 0 10px 50px -5px rgba(0, 68, 255, 0.1);
+    box-shadow: 0 10px 50px -5px rgba(2, 132, 199, 0.12);
   }
 
   .glass-card {
-    @apply bg-[#0A0A0A]/40 backdrop-blur-xl border border-[#00F0FF]/20 shadow-[0_0_20px_rgba(0,240,255,0.05)];
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200/60 shadow-xl shadow-slate-200/50;
   }
 
   .glass-panel {
-    @apply bg-[#0A0A0A]/60 backdrop-blur-2xl border border-[#00F0FF]/30 shadow-[0_0_30px_rgba(0,68,255,0.1)];
+    @apply bg-white/90 backdrop-blur-2xl border border-slate-200 shadow-2xl shadow-slate-200/60;
   }
   
   .glass {
-    @apply bg-[#0A0A0A]/40 backdrop-blur-xl border border-[#00F0FF]/10 shadow-[0_0_20px_rgba(0,240,255,0.05)];
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200 shadow-lg shadow-slate-100;
   }
 
   .gradient-mesh {
     background-image: 
-      radial-gradient(at 40% 20%, hsla(220,100%,50%,0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, hsla(189,100%,50%,0.15) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(220,100%,50%,0.15) 0px, transparent 50%);
+      radial-gradient(at 40% 20%, hsla(200,100%,92%,0.6) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(180,100%,92%,0.6) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(210,100%,94%,0.6) 0px, transparent 50%);
   }
 
   .animation-delay-2000 { animation-delay: 2s; }

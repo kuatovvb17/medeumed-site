@@ -11,29 +11,29 @@ interface AppointmentListProps {
 
 function AppointmentCard({ appointment }: { appointment: Appointment }) {
   return (
-    <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-6 border border-emerald-500/20 shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] transition-all duration-500 group hover:-translate-y-1 cursor-pointer">
+    <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-slate-200 shadow-md shadow-slate-100 hover:border-sky-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] transition-all duration-500 group hover:-translate-y-1 cursor-pointer">
       <div className="flex justify-between items-start mb-6">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-slate-200">
           <Clock size={20} />
         </div>
         <StatusBadge status={appointment.status} />
       </div>
 
-      <h3 className="text-xl font-bold text-white font-serif mb-1">
+      <h3 className="text-xl font-bold text-slate-900 font-serif mb-1">
         {(!appointment.service_type || !isNaN(Number(appointment.service_type))) ? 'Медициналық қабылдау' : appointment.service_type}
       </h3>
-      <p className="text-slate-400 text-sm mb-6 pb-6 border-b border-white/10">
+      <p className="text-slate-600 text-sm mb-6 pb-6 border-b border-slate-200">
         {appointment.doctors?.full_name
           ? `Дәрігер: ${appointment.doctors.full_name}`
           : 'Дәрігер белгіленбеген'}
       </p>
 
       <div className="flex items-center justify-between text-sm font-medium">
-        <div className="flex items-center gap-2 text-slate-300">
+        <div className="flex items-center gap-2 text-slate-700">
           <Calendar size={16} className="text-emerald-500/70" />
           {appointment.appointment_date}
         </div>
-        <div className="flex items-center gap-2 text-white bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+        <div className="flex items-center gap-2 text-slate-900 bg-white/5 px-3 py-1.5 rounded-lg border border-slate-200">
           <Clock size={16} className="text-emerald-400" />
           {appointment.appointment_time?.substring(0, 5)}
         </div>
@@ -44,19 +44,19 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
 
 function EmptyState() {
   return (
-    <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-16 flex flex-col items-center justify-center border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] text-center">
-      <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center text-slate-500 mb-6 border border-white/10">
+    <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-16 flex flex-col items-center justify-center border border-slate-200 shadow-xl shadow-slate-100 text-center">
+      <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center text-slate-500 mb-6 border border-slate-200">
         <Calendar size={32} />
       </div>
-      <h3 className="text-2xl font-bold font-serif text-white mb-2">
+      <h3 className="text-2xl font-bold font-serif text-slate-900 mb-2">
         Сізде белсенді жазылулар жоқ
       </h3>
-      <p className="text-slate-400 mb-8 max-w-md mx-auto">
+      <p className="text-slate-600 mb-8 max-w-md mx-auto">
         Жаңа қабылдауға қазір-ақ жазылып, өзіңізге ыңғайлы уақытты таңдай аласыз.
       </p>
       <a
         href="/booking"
-        className="bg-[#0044FF] text-white px-8 py-4 rounded-full font-bold hover:bg-[#00F0FF] hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300"
+        className="bg-sky-600 text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-sky-600 hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300"
       >
         Қабылдауға жазылу
       </a>
@@ -82,14 +82,14 @@ export function AppointmentList({ appointments, loading }: AppointmentListProps)
   return (
     <div className="animate-fade-in-up">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
-        <h2 className="text-2xl font-bold font-serif text-white tracking-wide">
+        <h2 className="text-2xl font-bold font-serif text-slate-900 tracking-wide">
           Алдағы қабылдаулар
         </h2>
         
         {hasMore && (
           <button 
             onClick={() => setShowAll(!showAll)}
-            className="flex items-center gap-2 text-[#00F0FF] font-medium hover:text-white transition-colors bg-[#00F0FF]/10 px-4 py-2 rounded-xl border border-[#00F0FF]/20 self-start sm:self-auto"
+            className="flex items-center gap-2 text-sky-600 font-medium hover:text-slate-900 transition-colors bg-sky-600/10 px-4 py-2 rounded-xl border border-sky-100 self-start sm:self-auto"
           >
             {showAll ? (
               <>Тарихты жасыру <ChevronUp size={16} /></>

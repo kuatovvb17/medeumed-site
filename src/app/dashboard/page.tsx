@@ -80,7 +80,7 @@ export default function DashboardPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-emerald-400 font-sans">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-emerald-400 font-sans">
         Жүктелуде...
       </div>
     );
@@ -88,18 +88,18 @@ export default function DashboardPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
         {/* Neon glowing orbs */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#0F4C3A]/40 rounded-full blur-[120px]" />
         </div>
         
-        <div className="z-10 bg-slate-900/60 backdrop-blur-xl p-10 rounded-3xl border border-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.1)] w-full max-w-md transition-all duration-500 ease-in-out hover:border-emerald-500/40 hover:shadow-[0_0_60px_rgba(16,185,129,0.15)]">
+        <div className="z-10 bg-white/80 backdrop-blur-xl p-10 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 w-full max-w-md transition-all duration-500 ease-in-out hover:border-sky-300 hover:shadow-[0_0_60px_rgba(16,185,129,0.15)]">
           <div className="text-center mb-10">
             <Shield className="w-16 h-16 text-emerald-400 mx-auto mb-6 drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]" />
-            <h1 className="text-3xl font-serif font-bold text-white mb-3">Жүйеге кіру</h1>
-            <p className="text-slate-400 font-sans text-sm">Жалғастыру үшін телефон нөміріңізді енгізіңіз</p>
+            <h1 className="text-3xl font-serif font-bold text-slate-900 mb-3">Жүйеге кіру</h1>
+            <p className="text-slate-600 font-sans text-sm">Жалғастыру үшін телефон нөміріңізді енгізіңіз</p>
           </div>
           
           <form onSubmit={handleLogin} className="space-y-6">
@@ -112,7 +112,7 @@ export default function DashboardPage() {
                 value={loginPhone}
                 onChange={(e) => setLoginPhone(formatPhone(e.target.value))}
                 placeholder="+7 (700) 123-45-67"
-                className="w-full bg-slate-950/80 border border-emerald-500/30 rounded-2xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all duration-500 ease-in-out"
+                className="w-full bg-slate-50 border border-slate-300 rounded-2xl px-5 py-4 text-slate-900 placeholder:text-slate-600 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all duration-500 ease-in-out"
                 required
               />
             </div>
@@ -145,12 +145,12 @@ export default function DashboardPage() {
     : '—';
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 flex font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex font-sans selection:bg-emerald-500/30">
       {/* ─── Left Sidebar ─── */}
-      <aside className="hidden md:flex w-72 bg-slate-900/80 backdrop-blur-xl border-r border-emerald-500/10 flex-col fixed h-screen pt-28 pb-8 px-6 z-30">
+      <aside className="hidden md:flex w-72 bg-white/90 backdrop-blur-xl border-r border-slate-100 flex-col fixed h-screen pt-28 pb-8 px-6 z-30">
         {/* Logo */}
         <div>
-          <h2 className="font-serif text-2xl font-bold text-white">
+          <h2 className="font-serif text-2xl font-bold text-slate-900">
             <span className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.3)]">Medeu</span>Med
           </h2>
           <p className="text-xs text-emerald-500/70 uppercase tracking-widest mt-1">
@@ -170,8 +170,8 @@ export default function DashboardPage() {
                 onClick={() => setActiveTab(item.id)}
                 className={`flex items-center gap-3.5 w-full px-4 py-3.5 rounded-2xl text-[15px] font-medium transition-all duration-500 ease-in-out ${
                   isActive
-                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
-                    : 'text-slate-400 hover:bg-slate-800/50 hover:text-emerald-300'
+                    ? 'bg-emerald-500/10 text-emerald-400 border border-slate-300 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
+                    : 'text-slate-600 hover:bg-slate-800/50 hover:text-emerald-300'
                 }`}
               >
                 <Icon size={20} className={isActive ? 'drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]' : ''} />
@@ -183,7 +183,7 @@ export default function DashboardPage() {
 
         {/* Bottom actions */}
         <div className="space-y-3">
-          <div className="border-t border-emerald-500/10" />
+          <div className="border-t border-slate-100" />
 
           <button 
             onClick={handleLogout}
@@ -196,7 +196,7 @@ export default function DashboardPage() {
       </aside>
 
       {/* ─── Mobile Bottom Nav ─── */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-slate-900/90 backdrop-blur-xl border-t border-emerald-500/10 px-4 py-3 flex justify-around">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 px-4 py-3 flex justify-around">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -231,7 +231,7 @@ export default function DashboardPage() {
         
         {/* Header */}
         <div className="relative z-10">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-white tracking-wide">
+          <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 tracking-wide">
             Қош келдіңіз 👋
           </h1>
           <p className="text-emerald-400/80 text-lg mt-3">
@@ -242,44 +242,44 @@ export default function DashboardPage() {
         {/* Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 relative z-10">
           {/* Total appointments */}
-          <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-6 border border-emerald-500/20 transition-all duration-500 ease-in-out hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-slate-200 transition-all duration-500 ease-in-out hover:border-sky-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-500 ease-in-out">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-slate-200 shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-500 ease-in-out">
                 <Calendar size={20} />
               </div>
-              <p className="text-sm text-slate-400 font-medium">
+              <p className="text-sm text-slate-600 font-medium">
                 Барлық жазылулар
               </p>
             </div>
-            <p className="text-4xl font-bold text-white font-serif tracking-wider">
+            <p className="text-4xl font-bold text-slate-900 font-serif tracking-wider">
               {loading ? '...' : appointments.length}
             </p>
           </div>
 
           {/* Confirmed */}
-          <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-6 border border-emerald-500/20 transition-all duration-500 ease-in-out hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-slate-200 transition-all duration-500 ease-in-out hover:border-sky-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-500 ease-in-out">
                 <FileText size={20} />
               </div>
-              <p className="text-sm text-slate-400 font-medium">Расталған</p>
+              <p className="text-sm text-slate-600 font-medium">Расталған</p>
             </div>
-            <p className="text-4xl font-bold text-white font-serif tracking-wider">
+            <p className="text-4xl font-bold text-slate-900 font-serif tracking-wider">
               {loading ? '...' : confirmedCount}
             </p>
           </div>
 
           {/* Next appointment */}
-          <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-6 border border-emerald-500/20 transition-all duration-500 ease-in-out hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-slate-200 transition-all duration-500 ease-in-out hover:border-sky-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-500 ease-in-out">
                 <Calendar size={20} />
               </div>
-              <p className="text-sm text-slate-400 font-medium">
+              <p className="text-sm text-slate-600 font-medium">
                 Келесі қабылдау
               </p>
             </div>
-            <p className="text-xl font-bold text-white font-serif tracking-wide truncate">
+            <p className="text-xl font-bold text-slate-900 font-serif tracking-wide truncate">
               {loading ? '...' : nextDateDisplay}
             </p>
           </div>

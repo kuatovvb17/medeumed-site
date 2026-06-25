@@ -47,7 +47,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled
-          ? "h-20 bg-[#0A0A0A]/80 backdrop-blur-xl border-b border-white/10 shadow-sm shadow-[#00F0FF]/10"
+          ? "h-20 bg-white/80 backdrop-blur-xl border-b border-slate-200 shadow-sm"
           : "h-24 bg-transparent"
       }`}
     >
@@ -55,8 +55,8 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="relative z-10">
           <span className="font-serif text-3xl font-bold tracking-tight">
-            <span className="text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]">Medeu</span>
-            <span className="text-white">Med</span>
+            <span className="text-sky-600">Medeu</span>
+            <span className="text-slate-900">Med</span>
           </span>
         </Link>
 
@@ -70,13 +70,13 @@ export default function Navbar() {
                 href={link.href}
                 className={`relative py-2 text-sm font-medium transition-colors duration-300 ${
                   isActive
-                    ? "text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-sky-600 font-semibold"
+                    : "text-slate-600 hover:text-sky-600"
                 }`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#00F0FF] shadow-[0_0_10px_rgba(0,240,255,1)]" />
+                  <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-sky-600" />
                 )}
               </Link>
             );
@@ -84,7 +84,7 @@ export default function Navbar() {
 
           <Link
             href="/booking"
-            className="rounded-full bg-[#0044FF] px-7 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#00F0FF] hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+            className="rounded-full bg-sky-600 px-7 py-3 text-sm font-semibold text-slate-900 transition-all duration-300 hover:scale-105 hover:bg-teal-600 hover:shadow-lg hover:shadow-sky-600/20"
           >
             Жазылу
           </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="relative z-[110] rounded-xl p-2 text-white transition-all duration-300 hover:bg-white/10 lg:hidden"
+          className="relative z-[110] rounded-xl p-2 text-slate-900 transition-all duration-300 hover:bg-slate-100 lg:hidden"
           aria-label={isMobileMenuOpen ? "Мәзірді жабу" : "Мәзірді ашу"}
         >
           {isMobileMenuOpen ? (
@@ -106,7 +106,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-[100] bg-[#0A0A0A] transition-all duration-500 ease-in-out lg:hidden ${
+        className={`fixed inset-0 z-[100] bg-white transition-all duration-500 ease-in-out lg:hidden ${
           isMobileMenuOpen 
             ? "opacity-100 pointer-events-auto" 
             : "opacity-0 pointer-events-none"
@@ -126,13 +126,13 @@ export default function Navbar() {
                   href={link.href}
                   className={`relative rounded-2xl px-5 py-4 text-lg font-medium transition-all duration-300 ${
                     isActive
-                      ? "bg-[#0044FF]/20 text-[#00F0FF]"
-                      : "text-slate-400 hover:bg-white/5 hover:text-white"
+                      ? "bg-sky-50 text-sky-600 font-semibold"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-sky-600"
                   }`}
                 >
                   <span className="flex items-center gap-3">
                     {isActive && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_10px_rgba(0,240,255,1)]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-sky-600" />
                     )}
                     {link.label}
                   </span>
@@ -143,7 +143,7 @@ export default function Navbar() {
             <div className="mt-8">
               <Link
                 href="/booking"
-                className="block w-full rounded-full bg-[#0044FF] px-7 py-4 text-center text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:bg-[#00F0FF] hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+                className="block w-full rounded-full bg-sky-600 px-7 py-4 text-center text-lg font-semibold text-slate-900 transition-all duration-300 hover:scale-[1.02] hover:bg-sky-600 hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]"
               >
                 Қабылдауға жазылу
               </Link>

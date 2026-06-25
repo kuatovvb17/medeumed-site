@@ -13,7 +13,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-slate-900 text-slate-400 pt-20 pb-10">
+    <footer className="bg-white text-slate-600 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Column 1 — Logo & Description */}
@@ -21,17 +21,17 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-6">
               <span className="text-2xl font-bold font-sans tracking-tight">
                 <span className="text-emerald-500">Medeu</span>
-                <span className="text-white">Med</span>
+                <span className="text-slate-900">Med</span>
               </span>
             </Link>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Жоғары стандартты медициналық қызметтер. Біздің басты құндылығымыз – сіздің денсаулығыңыз.
             </p>
           </div>
 
           {/* Column 2 — Навигация */}
           <div>
-            <h4 className="text-white font-bold text-base mb-6 uppercase tracking-wider">Навигация</h4>
+            <h4 className="text-slate-900 font-bold text-base mb-6 uppercase tracking-wider">Навигация</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/" className="hover:text-emerald-400 transition-colors">
@@ -58,7 +58,7 @@ export default function Footer() {
 
           {/* Column 3 — Қызметтер */}
           <div>
-            <h4 className="text-white font-bold text-base mb-6 uppercase tracking-wider">Қызметтер</h4>
+            <h4 className="text-slate-900 font-bold text-base mb-6 uppercase tracking-wider">Қызметтер</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/services" className="hover:text-emerald-400 transition-colors">
@@ -95,7 +95,7 @@ export default function Footer() {
 
           {/* Column 4 — Байланыс */}
           <div>
-            <h4 className="text-white font-bold text-base mb-6 uppercase tracking-wider">Байланыс</h4>
+            <h4 className="text-slate-900 font-bold text-base mb-6 uppercase tracking-wider">Байланыс</h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="text-emerald-500 shrink-0 mt-0.5" size={18} />
@@ -118,7 +118,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-sm">
+        <div className="border-t border-slate-200 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-sm">
           <p>© {year} MedeuMed ЖШС. Барлық құқықтар қорғалған.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="#" className="hover:text-emerald-400 transition-colors">Құпиялылық саясаты</Link>

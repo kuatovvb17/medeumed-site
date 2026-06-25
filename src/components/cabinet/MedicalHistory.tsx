@@ -41,7 +41,7 @@ function RecordCard({ record, onUpload }: { record: ExtendedMedicalRecord; onUpl
   };
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-emerald-500/20 overflow-hidden transition-all duration-500 ease-in-out hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] mb-4">
+    <div className="bg-white/90 backdrop-blur-xl rounded-3xl border border-slate-200 overflow-hidden transition-all duration-500 ease-in-out hover:border-sky-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] mb-4">
       <div 
         onClick={() => setIsOpen(!isOpen)}
         className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer group"
@@ -50,13 +50,13 @@ function RecordCard({ record, onUpload }: { record: ExtendedMedicalRecord; onUpl
           <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ease-in-out group-hover:scale-110 border ${
             record.isUploaded 
               ? 'bg-purple-500/10 text-purple-400 border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.2)]' 
-              : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+              : 'bg-emerald-500/10 text-emerald-400 border-slate-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
           }`}>
             {record.isUploaded ? <FileIcon size={24} /> : <Activity size={24} />}
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-300 transition-colors duration-500 ease-in-out">{record.title}</h3>
-            <p className="text-slate-400 text-sm">
+            <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-emerald-300 transition-colors duration-500 ease-in-out">{record.title}</h3>
+            <p className="text-slate-600 text-sm">
               {record.date} {record.doctor ? `• Дәрігер: ${record.doctor}` : ''}
             </p>
           </div>
@@ -65,7 +65,7 @@ function RecordCard({ record, onUpload }: { record: ExtendedMedicalRecord; onUpl
           <span
             className={`text-sm font-bold px-4 py-1.5 rounded-full border transition-all duration-500 ease-in-out ${
               isNormal
-                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                ? 'bg-emerald-500/10 text-emerald-400 border-slate-300'
                 : record.isUploaded
                 ? 'bg-purple-500/10 text-purple-400 border-purple-500/30'
                 : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
@@ -84,15 +84,15 @@ function RecordCard({ record, onUpload }: { record: ExtendedMedicalRecord; onUpl
       {/* Accordion Content */}
       <div 
         className={`transition-all duration-500 ease-in-out overflow-hidden ${
-          isOpen ? 'max-h-[500px] opacity-100 border-t border-emerald-500/20' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-[500px] opacity-100 border-t border-slate-200' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="p-6 sm:px-8 bg-slate-950/50">
+        <div className="p-6 sm:px-8 bg-slate-50/50">
           <h4 className="text-emerald-400 font-bold mb-3 flex items-center gap-3 text-lg">
             <Shield size={20} className="drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
             Дәрігердің қорытындысы
           </h4>
-          <p className="text-slate-300 font-light leading-relaxed mb-8 text-[15px]">
+          <p className="text-slate-700 font-light leading-relaxed mb-8 text-[15px]">
             {record.recommendation || 'Медициналық құжат жүктелді. Толық ақпаратты файлдан көре аласыз.'}
           </p>
           
@@ -106,7 +106,7 @@ function RecordCard({ record, onUpload }: { record: ExtendedMedicalRecord; onUpl
           <div className="flex justify-end">
             <button 
               onClick={handleUploadClick}
-              className="flex items-center gap-3 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 px-6 py-3.5 rounded-2xl font-medium transition-all duration-500 ease-in-out text-sm shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_25px_rgba(16,185,129,0.2)] hover:-translate-y-0.5"
+              className="flex items-center gap-3 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-slate-300 px-6 py-3.5 rounded-2xl font-medium transition-all duration-500 ease-in-out text-sm shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_25px_rgba(16,185,129,0.2)] hover:-translate-y-0.5"
             >
               <UploadCloud size={20} />
               Көшірмені жүктеу
@@ -162,7 +162,7 @@ export function MedicalHistory({ loading = false }: MedicalHistoryProps) {
   return (
     <div className="animate-fade-in-up w-full max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold font-serif text-white tracking-wide">
+        <h2 className="text-2xl md:text-3xl font-bold font-serif text-slate-900 tracking-wide">
           Медициналық <span className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.3)]">карта</span>
         </h2>
       </div>
@@ -170,7 +170,7 @@ export function MedicalHistory({ loading = false }: MedicalHistoryProps) {
       <div className="space-y-2">
         {loading
           ? Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="bg-slate-900/50 border border-emerald-500/10 rounded-3xl p-6 mb-4">
+              <div key={i} className="bg-slate-50 border border-slate-100 rounded-3xl p-6 mb-4">
                 <MedicalRecordSkeleton />
               </div>
             ))
